@@ -1,12 +1,10 @@
 // 57
 import { cart } from './data/cart.js';
 import { products } from './data/products.js';
-import { CartProduct } from './types.js';
 
-let productsHTML: string = '';
 
-products.forEach((product) => {
-  productsHTML += `
+const productsHTML: string = products.map((product) =>
+  `
     <div class="product-container">
       <div class="product-image-container">
         <img class="product-image"
@@ -46,7 +44,7 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="js-added-to-cart-${product.id} added-to-cart">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -56,14 +54,16 @@ products.forEach((product) => {
         Add to Cart
       </button>
     </div>
-  `;
-});
+  `
+).join('');
 
 getElement('.js-products-grid').innerHTML = productsHTML;
 
 // Make Add to cart button interactive
 document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
   .forEach((button) => {
+    let timeoutId: number;
+
     button.addEventListener('click', () => {
       const { productId } = button.dataset;
       if (!productId) {
@@ -71,38 +71,47 @@ document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
         return;
       }
 
-      let matchingItem: CartProduct | undefined;
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingItem = item;
-        }
-      });
-
       const quantitySelector = getElement<HTMLSelectElement>(
         `.js-quantity-selector-${productId}`
       );
       const quantity: number = Number(quantitySelector.value);
 
-      if (matchingItem) {
-        matchingItem.quantity += quantity;
-      } else {
-        cart.push({
-          productId,
-          quantity
-        });
-      }
-
+      // Find matching item, or add if it doesnt exist
+      updateCart(productId, quantity);
       updateCartQuantity();
+      timeoutId = showAddedToCartMessage(productId);
     });
   });
 
+/**
+ * Shows the "Added" message after adding a product to cart.
+ * @param productId - The ID of the product that was added.
+ * @returns A timeout ID that can be cleared with clearTimeout.
+ */
+function showAddedToCartMessage(productId: string): number {
+  const addedMessage = getElement<HTMLDivElement>(`.js-added-to-cart-${productId}`);
+  addedMessage.classList.add('added-to-cart-visible');
 
+  return setTimeout(() => {
+    addedMessage.classList.remove('added-to-cart-visible');
+  }, 2000);
+}
+
+function updateCart(productId: string, quantity: number): void {
+  const matchingItem = cart.find((item) => item.productId === productId);
+  if (matchingItem) {
+    matchingItem.quantity += quantity;
+  } else {
+    cart.push({
+      productId,
+      quantity
+    });
+  }
+
+}
 
 function updateCartQuantity(): void {
-  let cartQuantity = 0;
-  cart.forEach((item) => {
-    cartQuantity += item.quantity;
-  });
+  const cartQuantity: number = cart.reduce((total, item) => total + item.quantity, 0);
   getElement('.js-cart-quantity').innerHTML = cartQuantity.toString();
 }
 
