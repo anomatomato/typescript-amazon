@@ -61,6 +61,7 @@ products.forEach((product) => {
 
 getElement('.js-products-grid').innerHTML = productsHTML;
 
+// Make Add to cart button interactive
 document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
@@ -82,9 +83,19 @@ document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
         });
       }
 
-      console.log(cart);
+      updateCartQuantity();
     });
   });
+
+
+
+function updateCartQuantity(): void {
+  let cartQuantity = 0;
+  cart.forEach((item) => {
+    cartQuantity += item.quantity;
+  });
+  getElement('.js-cart-quantity').innerHTML = cartQuantity.toString();
+}
 
 function getElement<K extends HTMLElement>(selector: string): K {
   const element = document.querySelector<K>(selector);
