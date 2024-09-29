@@ -1,5 +1,7 @@
 // 57
-import { products } from './data/products.ts';
+import { cart } from './data/cart.js';
+import { products } from './data/products.js';
+import { CartProduct } from './types.js';
 
 let productsHTML: string = '';
 
@@ -49,7 +51,8 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart"
+      data-product-id ="${product.id}">
         Add to Cart
       </button>
     </div>
@@ -57,6 +60,31 @@ products.forEach((product) => {
 });
 
 getElement('.js-products-grid').innerHTML = productsHTML;
+
+document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      const productId: string = button.dataset.productId ?? 'Unknown Product';
+
+      let matchingItem: CartProduct | undefined;
+      cart.forEach((item) => {
+        if (productId === item.productId) {
+          matchingItem = item;
+        }
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity += 1;
+      } else {
+        cart.push({
+          productId,
+          quantity: 1
+        });
+      }
+
+      console.log(cart);
+    });
+  });
 
 function getElement<K extends HTMLElement>(selector: string): K {
   const element = document.querySelector<K>(selector);

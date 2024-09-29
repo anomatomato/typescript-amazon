@@ -10,4 +10,9 @@ export interface Product {
   keywords: string[],
   type?: string,
   sizeChartLink?: string
-}
+};
+
+export interface CartProduct {
+  productId: string,
+  quantity: number
+};
