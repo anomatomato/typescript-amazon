@@ -60,7 +60,7 @@ getElement('.js-products-grid').innerHTML = productsHTML;
 document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {
     button.addEventListener('click', () => {
-        const productId = button.dataset.productId;
+        const { productId } = button.dataset;
         if (!productId) {
             console.error(`No Product ID data for button: ${button}`);
             return;

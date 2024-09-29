@@ -658,5 +658,32 @@ export const products: Product[] = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: "id1",
+    image: "images/products/backpack.jpg",
+    name: "Big Black Backpack",
+    rating: {
+      stars: 3.5,
+      count: 1079
+    },
+    priceCents: 3000,
+    keywords: [
+      "mens",
+      "backpacks"
+    ]
+  },
+  {
+    id: "id2",
+    image: "images/products/umbrella.jpg",
+    name: "Universal Umbrella",
+    rating: {
+      stars: 5.0,
+      count: 10358
+    },
+    priceCents: 1500,
+    keywords: [
+      "umbrellas"
+    ]
   }
 ];
