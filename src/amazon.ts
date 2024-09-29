@@ -30,7 +30,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-quantity-container">
-        <select>
+        <select class="js-quantity-selector-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -65,7 +65,11 @@ getElement('.js-products-grid').innerHTML = productsHTML;
 document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
-      const productId: string = button.dataset.productId ?? 'Unknown Product';
+      const productId: string | undefined = button.dataset.productId;
+      if (!productId) {
+        console.error(`No Product ID data for button: ${button}`);
+        return;
+      }
 
       let matchingItem: CartProduct | undefined;
       cart.forEach((item) => {
@@ -74,12 +78,17 @@ document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
         }
       });
 
+      const quantitySelector = getElement<HTMLSelectElement>(
+        `.js-quantity-selector-${productId}`
+      );
+      const quantity: number = Number(quantitySelector.value);
+
       if (matchingItem) {
-        matchingItem.quantity += 1;
+        matchingItem.quantity += quantity;
       } else {
         cart.push({
           productId,
-          quantity: 1
+          quantity
         });
       }
 
@@ -97,6 +106,7 @@ function updateCartQuantity(): void {
   getElement('.js-cart-quantity').innerHTML = cartQuantity.toString();
 }
 
+// Safer wrapper for document.querySelector()
 function getElement<K extends HTMLElement>(selector: string): K {
   const element = document.querySelector<K>(selector);
   if (!element) {
