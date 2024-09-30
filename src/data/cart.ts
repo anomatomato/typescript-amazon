@@ -1,5 +1,5 @@
-import { getElement } from '../dom-utils.js';
 import { CartProduct } from '../types.js';
+import { getElement } from '../utils/dom-utils.js';
 
 const cart: CartProduct[] = [{
   productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',

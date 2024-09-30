@@ -1,7 +1,8 @@
 // 57
 import { cart, handleAddToCart } from './data/cart.js';
 import { products } from './data/products.js';
-import { getElement } from './dom-utils.js';
+import { getElement } from './utils/dom-utils.js';
+import { formatCurrency } from './utils/money.js';
 // Helper functions
 /**
  * Shows the "Added" message after adding a product to cart.
@@ -41,7 +42,7 @@ const productsHTML = products.map((product) => `
       </div>
 
       <div class="product-price">
-        $${(product.priceCents / 100).toFixed(2)}
+        $${formatCurrency(product.priceCents)}
       </div>
 
       <div class="product-quantity-container">
