@@ -3,8 +3,6 @@ import { products } from './data/products.js';
 import { getElement } from './utils/dom-utils.js';
 import { formatCurrency } from './utils/money.js';
 
-console.log(getElement);
-
 let cartSummayHTML: string = '';
 
 cart.forEach((cartItem) => {

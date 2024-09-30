@@ -2,7 +2,6 @@ import { cart, removeFromCart } from './data/cart.js';
 import { products } from './data/products.js';
 import { getElement } from './utils/dom-utils.js';
 import { formatCurrency } from './utils/money.js';
-console.log(getElement);
 let cartSummayHTML = '';
 cart.forEach((cartItem) => {
     const productId = cartItem.productId;
