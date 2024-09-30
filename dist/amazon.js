@@ -74,6 +74,7 @@ const productsHTML = products.map((product) => `
     </div>
   `).join('');
 getElement('.js-products-grid').innerHTML = productsHTML;
+updateCartQuantity();
 // Add event listener to 'add-to-cart'-button
 document.querySelectorAll('.js-add-to-cart')
     .forEach((button) => {

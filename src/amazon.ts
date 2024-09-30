@@ -82,6 +82,7 @@ const productsHTML: string = products.map((product) =>
 ).join('');
 
 getElement('.js-products-grid').innerHTML = productsHTML;
+updateCartQuantity();
 
 
 // Add event listener to 'add-to-cart'-button

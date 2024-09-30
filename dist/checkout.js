@@ -1,4 +1,4 @@
-import { cart } from './data/cart.js';
+import { cart, removeFromCart } from './data/cart.js';
 import { products } from './data/products.js';
 import { getElement } from './utils/dom-utils.js';
 import { formatCurrency } from './utils/money.js';
@@ -36,7 +36,7 @@ cart.forEach((cartItem) => {
             <span class="update-quantity-link link-primary">
               Update
             </span>
-            <span class="delete-quantity-link link-primary">
+            <span class="js-delete-link delete-quantity-link link-primary" data-product-id="${matchingProduct.id}">
               Delete
             </span>
           </div>
@@ -88,6 +88,12 @@ cart.forEach((cartItem) => {
     </div>
   `;
 });
-console.log(cartSummayHTML);
 getElement('.js-order-summary').innerHTML = cartSummayHTML;
+document.querySelectorAll('.js-delete-link')
+    .forEach((link) => {
+    link.addEventListener('click', (event) => {
+        const productId = link.dataset.productId;
+        productId ? removeFromCart(productId) : console.error(`No productId data in link: ${link}`);
+    });
+});
 //# sourceMappingURL=checkout.js.map

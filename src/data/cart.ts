@@ -1,7 +1,7 @@
 import { CartProduct } from '../types.js';
 import { getElement } from '../utils/dom-utils.js';
 
-const cart: CartProduct[] = [{
+let cart: CartProduct[] = [{
   productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
   quantity: 2
 },
@@ -32,4 +32,10 @@ function updateCart(productId: string, quantity: number): void {
   }
 }
 
-export { cart, handleAddToCart };
+function removeFromCart(productId: string): void {
+  const newCart: CartProduct[] = cart.filter((cartItem) => cartItem.productId !== productId);
+
+  cart = newCart;
+}
+
+export { cart, handleAddToCart, removeFromCart };
