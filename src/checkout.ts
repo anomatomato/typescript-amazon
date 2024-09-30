@@ -17,7 +17,8 @@ cart.forEach((cartItem) => {
   }
   cartSummayHTML +=
     `
-    <div class="cart-item-container">
+    <div class="cart-item-container 
+    js-cart-item-container-${matchingProduct.id}">
       <div class="delivery-date">
         Delivery date: Wednesday, June 15
       </div>
@@ -99,7 +100,13 @@ document.querySelectorAll<HTMLSpanElement>('.js-delete-link')
   .forEach((link) => {
     link.addEventListener('click', (event) => {
       const productId: string | undefined = link.dataset.productId;
+      if (!productId) {
+        console.error(`No productId data in link: ${link}`);
+        return;
+      }
 
-      productId ? removeFromCart(productId) : console.error(`No productId data in link: ${link}`);
+      removeFromCart(productId);
+
+      getElement<HTMLDivElement>(`.js-cart-item-container-${productId}`).remove();
     });
   });
