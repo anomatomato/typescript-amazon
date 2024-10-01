@@ -1,8 +1,16 @@
+import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
+
 import { calculateCartQuantity, cart, removeFromCart, updateQuantity } from './data/cart.js';
 import { products } from './data/products.js';
 import { getElement } from './utils/dom-utils.js';
 import { formatCurrency } from './utils/money.js';
 
+hello();
+
+const today = dayjs();
+const deliveryDate = today.add(7, 'day');
+console.log(deliveryDate.format('dddd, MMMM D'));
+// --- Main Functions ---
 
 function updateCartQuantity(): void {
   const cartQuantity: number = calculateCartQuantity();
@@ -10,18 +18,39 @@ function updateCartQuantity(): void {
     .innerHTML = `${cartQuantity} items`;
 }
 
-let cartSummayHTML: string = '';
-
-cart.forEach((cartItem) => {
-  const productId: string = cartItem.productId;
-
-  const matchingProduct = products.find((product) => product.id === productId);
-  if (!matchingProduct) {
-    console.error(`No product found with productId: ${productId}`);
+function saveNewQuantity(productId: string, newQuantity: number): void {
+  if (newQuantity < 0) {
+    alert('Quantity must be at least 0');
     return;
   }
-  cartSummayHTML +=
-    `
+
+  const container = getElement<HTMLDivElement>(`.js-cart-item-container-${productId}`);
+  container.classList.remove('is-editing-quantity');
+
+  // Dont update, when newQuantity is NaN or 0
+  if (newQuantity) {
+    updateQuantity(productId, newQuantity);
+    updateCartQuantity();
+
+    getElement<HTMLSpanElement>(`.js-quantity-label-${productId}`)
+      .innerHTML = newQuantity.toString();
+  }
+}
+
+// --- Render Cart Items ---
+function renderCartSummary(): void {
+  let cartSummayHTML: string = '';
+
+  cart.forEach((cartItem) => {
+    const productId: string = cartItem.productId;
+
+    const matchingProduct = products.find((product) => product.id === productId);
+    if (!matchingProduct) {
+      console.error(`No product found with productId: ${productId}`);
+      return;
+    }
+    cartSummayHTML +=
+      `
     <div class="cart-item-container 
     js-cart-item-container-${matchingProduct.id}">
       <div class="delivery-date">
@@ -102,9 +131,10 @@ cart.forEach((cartItem) => {
       </div>
     </div>
   `;
-});
+  });
 
-getElement<HTMLDivElement>('.js-order-summary').innerHTML = cartSummayHTML;
+  getElement<HTMLDivElement>('.js-order-summary').innerHTML = cartSummayHTML;
+}
 
 // Add event listeners for all Update links
 document.querySelectorAll<HTMLSpanElement>('.js-update-link')
@@ -137,24 +167,6 @@ document.querySelectorAll<HTMLInputElement>('.js-quantity-input')
     });
   });
 
-function saveNewQuantity(productId: string, newQuantity: number): void {
-  if (newQuantity < 0) {
-    alert('Quantity must be at least 0');
-    return;
-  }
-
-  const container = getElement<HTMLDivElement>(`.js-cart-item-container-${productId}`);
-  container.classList.remove('is-editing-quantity');
-
-  // Dont update, when newQuantity is NaN or 0
-  if (newQuantity) {
-    updateQuantity(productId, newQuantity);
-    updateCartQuantity();
-
-    getElement<HTMLSpanElement>(`.js-quantity-label-${productId}`)
-      .innerHTML = newQuantity.toString();
-  }
-}
 
 // Add event listeners for all Save links
 document.querySelectorAll<HTMLSpanElement>('.js-save-link')
@@ -190,4 +202,11 @@ document.querySelectorAll<HTMLSpanElement>('.js-delete-link')
     });
   });
 
-updateCartQuantity();
+// --- Initialize Page ---
+
+function init(): void {
+  renderCartSummary();
+  updateCartQuantity();
+}
+
+init();
