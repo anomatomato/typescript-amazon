@@ -4,9 +4,9 @@ function handleAddToCart(productId) {
     const quantitySelector = getElement(`.js-quantity-selector-${productId}`);
     const quantity = Number(quantitySelector.value);
     // Find matching item, or add if it doesnt exist
-    updateCart(productId, quantity);
+    addQuantity(productId, quantity);
 }
-function updateCart(productId, quantity) {
+function addQuantity(productId, quantity) {
     const matchingItem = cart.find((cartItem) => cartItem.productId === productId);
     if (matchingItem) {
         matchingItem.quantity += quantity;
@@ -19,10 +19,26 @@ function updateCart(productId, quantity) {
     }
     saveCartToStorage();
 }
+function updateQuantity(productId, newQuantity) {
+    const matchingItem = cart.find((cartItem) => cartItem.productId === productId);
+    if (matchingItem) {
+        matchingItem.quantity = newQuantity;
+    }
+    else {
+        cart.push({
+            productId,
+            quantity: newQuantity
+        });
+    }
+    saveCartToStorage();
+}
 function removeFromCart(productId) {
     const newCart = cart.filter((cartItem) => cartItem.productId !== productId);
     cart = newCart;
     saveCartToStorage();
+}
+function calculateCartQuantity() {
+    return cart.reduce((total, item) => total + item.quantity, 0);
 }
 function saveCartToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -42,5 +58,5 @@ function loadCartFromStorage() {
     }
     return cart;
 }
-export { cart, handleAddToCart, removeFromCart };
+export { calculateCartQuantity, cart, handleAddToCart, removeFromCart, updateQuantity };
 //# sourceMappingURL=cart.js.map

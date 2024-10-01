@@ -10,10 +10,10 @@ function handleAddToCart(productId: string): void {
   const quantity: number = Number(quantitySelector.value);
 
   // Find matching item, or add if it doesnt exist
-  updateCart(productId, quantity);
+  addQuantity(productId, quantity);
 }
 
-function updateCart(productId: string, quantity: number): void {
+function addQuantity(productId: string, quantity: number): void {
   const matchingItem = cart.find((cartItem) => cartItem.productId === productId);
   if (matchingItem) {
     matchingItem.quantity += quantity;
@@ -27,12 +27,31 @@ function updateCart(productId: string, quantity: number): void {
   saveCartToStorage();
 }
 
+function updateQuantity(productId: string, newQuantity: number): void {
+  const matchingItem = cart.find((cartItem) => cartItem.productId === productId);
+
+  if (matchingItem) {
+    matchingItem.quantity = newQuantity;
+  } else {
+    cart.push({
+      productId,
+      quantity: newQuantity
+    });
+  }
+
+  saveCartToStorage();
+}
+
 function removeFromCart(productId: string): void {
   const newCart: CartProduct[] = cart.filter((cartItem) => cartItem.productId !== productId);
 
   cart = newCart;
 
   saveCartToStorage();
+}
+
+function calculateCartQuantity(): number {
+  return cart.reduce((total, item) => total + item.quantity, 0);
 }
 
 function saveCartToStorage(): void {
@@ -55,4 +74,4 @@ function loadCartFromStorage(): CartProduct[] {
   return cart;
 }
 
-export { cart, handleAddToCart, removeFromCart };
+export { calculateCartQuantity, cart, handleAddToCart, removeFromCart, updateQuantity };

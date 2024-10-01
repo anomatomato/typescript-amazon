@@ -1,5 +1,5 @@
 // 57
-import { cart, handleAddToCart } from './data/cart.js';
+import { calculateCartQuantity, handleAddToCart } from './data/cart.js';
 import { products } from './data/products.js';
 import { getElement } from './utils/dom-utils.js';
 import { formatCurrency } from './utils/money.js';
@@ -22,7 +22,7 @@ function showAddedToCartMessage(productId: string): number {
 
 // Handles webpage content, so this function stays here
 function updateCartQuantity(): void {
-  const cartQuantity: number = cart.reduce((total, item) => total + item.quantity, 0);
+  const cartQuantity: number = calculateCartQuantity();
   getElement('.js-cart-quantity').innerHTML = cartQuantity.toString();
 }
 
@@ -82,8 +82,8 @@ const productsHTML: string = products.map((product) =>
 ).join('');
 
 getElement('.js-products-grid').innerHTML = productsHTML;
-updateCartQuantity();
 
+updateCartQuantity();
 
 // Add event listener to 'add-to-cart'-button
 document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')

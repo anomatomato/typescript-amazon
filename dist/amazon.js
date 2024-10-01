@@ -1,5 +1,5 @@
 // 57
-import { cart, handleAddToCart } from './data/cart.js';
+import { calculateCartQuantity, handleAddToCart } from './data/cart.js';
 import { products } from './data/products.js';
 import { getElement } from './utils/dom-utils.js';
 import { formatCurrency } from './utils/money.js';
@@ -18,7 +18,7 @@ function showAddedToCartMessage(productId) {
 }
 // Handles webpage content, so this function stays here
 function updateCartQuantity() {
-    const cartQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartQuantity = calculateCartQuantity();
     getElement('.js-cart-quantity').innerHTML = cartQuantity.toString();
 }
 // Main logic
