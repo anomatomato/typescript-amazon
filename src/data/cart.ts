@@ -78,4 +78,17 @@ function loadCartFromStorage(): CartProduct[] {
   return cart;
 }
 
-export { calculateCartQuantity, cart, handleAddToCart, removeFromCart, updateQuantity };
+function updateDeliveryOption(productId: string, deliveryOptionId: string): void {
+  const matchingItem = cart.find((cartItem) => cartItem.productId === productId);
+  if (!matchingItem) {
+    console.error(`No Cart Product found with productID: ${productId}`);
+    return;
+  }
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
+  saveCartToStorage();
+}
+
+export { calculateCartQuantity, cart, handleAddToCart, removeFromCart, updateDeliveryOption, updateQuantity };
+

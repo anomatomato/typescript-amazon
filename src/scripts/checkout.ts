@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 // This is named export
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 
-import { calculateCartQuantity, cart, removeFromCart, updateQuantity } from '../data/cart';
+import { calculateCartQuantity, cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../data/cart';
 import { deliveryOptions } from '../data/deliveryOptions';
 import { products } from '../data/products';
 import { CartProduct, Product } from '../types';
@@ -134,7 +134,9 @@ function deliveryOptionsHTML(matchingProduct: Product, cartItem: CartProduct): s
 
     html +=
       `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option"
+        data-product-id="${matchingProduct.id}"
+        data-delivery-option-id=${deliveryOption.id}>
         <input type="radio" 
         ${isChecked ? 'checked' : ''}
         class="delivery-option-input"
@@ -220,6 +222,19 @@ function setupEventListeners(): void {
 
         updateCartQuantity();
       });
+    });
+
+  document.querySelectorAll<HTMLDivElement>('.js-delivery-option')
+    .forEach((element) => {
+      element.addEventListener('click', () => {
+        const { productId, deliveryOptionId } = element.dataset;
+
+        if (productId && deliveryOptionId) {
+          updateDeliveryOption(productId, deliveryOptionId);
+        } else {
+          console.error(`Missing productId or deliveryOptionId in dataset of element: ${element}`);
+        }
+      })
     });
 }
 // --- Initialize Page ---
