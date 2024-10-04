@@ -1,4 +1,4 @@
-import { CartProduct } from '../types.js';
+import { CartProduct } from '../types/index.js';
 import { getElement } from '../utils/dom-utils.js';
 
 let cart: CartProduct[] = loadCartFromStorage();

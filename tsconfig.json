@@ -10,6 +10,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
+    
+    //"paths": {
+    //  "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js": ["./src/types/external/hello.d.ts"],
+    //}
   },
   "include": [
     "src/**/*.ts",
