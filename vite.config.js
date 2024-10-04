@@ -5,7 +5,7 @@ export default defineConfig({
   publicDir: '../public',
   build: {
     rollupOptions: {
-      input: './amazon.html',  // HTML-Einstiegspunkt 
+      input: 'src/amazon.html',  // HTML-Einstiegspunkt 
     },
     emptyOutDir: true,
     outDir: '../dist', // Where the built files will go

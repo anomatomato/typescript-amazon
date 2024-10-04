@@ -1,8 +1,8 @@
 // 57
-import { calculateCartQuantity, handleAddToCart } from '../data/cart.js';
-import { products } from '../data/products.js';
-import { getElement } from '../utils/dom-utils.js';
-import { formatCurrency } from '../utils/money.js';
+import { calculateCartQuantity, handleAddToCart } from '../data/cart';
+import { products } from '../data/products';
+import { getElement } from '../utils/dom-utils';
+import { formatCurrency } from '../utils/money';
 
 // Helper functions
 /**

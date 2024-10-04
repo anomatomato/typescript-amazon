@@ -1,4 +1,4 @@
-export interface Product {
+export type Product = {
   id: string,
   image: string,
   name: string,
@@ -12,7 +12,14 @@ export interface Product {
   sizeChartLink?: string
 };
 
-export interface CartProduct {
+export type CartProduct = {
   productId: string,
-  quantity: number
+  quantity: number,
+  deliveryOptionId: string
 };
+
+export type DeliveryOption = {
+  id: string,
+  deliveryDays: number,
+  priceCents: number
+}
