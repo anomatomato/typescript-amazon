@@ -1,5 +1,5 @@
+import { getElement } from '../scripts/utils/dom-utils';
 import { CartProduct } from '../types';
-import { getElement } from '../utils/dom-utils';
 
 let cart: CartProduct[] = loadCartFromStorage();
 

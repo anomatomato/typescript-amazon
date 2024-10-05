@@ -1,8 +1,8 @@
 // 57
 import { calculateCartQuantity, handleAddToCart } from '../data/cart';
 import { products } from '../data/products';
-import { getElement } from '../utils/dom-utils';
-import { formatCurrency } from '../utils/money';
+import { getElement } from './utils/dom-utils';
+import { formatCurrency } from './utils/money';
 
 // Helper functions
 /**
