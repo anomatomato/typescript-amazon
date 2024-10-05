@@ -1,7 +1,6 @@
 // without {} is called default export, use when only want to export 1 thing
 import dayjs from 'dayjs';
 // This is named export
-import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 
 import { calculateCartQuantity, cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../../data/cart';
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions';
@@ -9,12 +8,8 @@ import { getProduct } from '../../data/products';
 import { CartProduct, DeliveryOption, Product } from '../../types';
 import { getElement } from '..//utils/dom-utils';
 import { formatCurrency } from '../utils/money';
+import { renderPaymentSummary } from './paymentSummary';
 
-const today = dayjs();
-const deliveryDate = today.add(7, 'day');
-console.log(deliveryDate.format('dddd, MMMM D'));
-
-hello();
 // --- Main Functions ---
 
 function updateCartQuantity(): void {
@@ -184,6 +179,7 @@ function setupEventListeners(): void {
 
           const newQuantity: number = Number(input.value);
           saveNewQuantity(productId, newQuantity);
+          renderPaymentSummary();
         }
       });
     });
@@ -202,6 +198,7 @@ function setupEventListeners(): void {
         const newQuantity: number = Number(getElement<HTMLInputElement>(`.js-quantity-input-${productId}`).value);
 
         saveNewQuantity(productId, newQuantity);
+        renderPaymentSummary();
       });
     });
 
@@ -220,6 +217,7 @@ function setupEventListeners(): void {
         getElement<HTMLDivElement>(`.js-cart-item-container-${productId}`).remove();
 
         updateCartQuantity();
+        renderPaymentSummary();
       });
     });
 
@@ -232,6 +230,7 @@ function setupEventListeners(): void {
           updateDeliveryOption(productId, deliveryOptionId);
           // MVC: Update data, regenrate all the HTML (Model - View - Controller)
           renderOrderSummary();
+          renderPaymentSummary();
         } else {
           console.error(`Missing productId or deliveryOptionId in dataset of element: ${element}`);
         }
