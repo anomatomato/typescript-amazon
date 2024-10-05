@@ -13,3 +13,9 @@ export const deliveryOptions: DeliveryOption[] = [{
   deliveryDays: 1,
   priceCents: 999
 }];
+
+export function getDeliveryOption(deliveryOptionId: string): DeliveryOption {
+  const deliveryOption = deliveryOptions.find((option) => option.id === deliveryOptionId);
+
+  return deliveryOption || deliveryOptions[0];
+}

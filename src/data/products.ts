@@ -1,5 +1,13 @@
 import { Product } from '../types';
 
+export function getProduct(productId: string): Product | undefined {
+  const matchingProduct = products.find((product) => product.id === productId);
+  if (!matchingProduct) {
+    console.error(`No product found with productId: ${productId}`);
+  }
+  return matchingProduct;
+}
+
 export const products: Product[] = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",

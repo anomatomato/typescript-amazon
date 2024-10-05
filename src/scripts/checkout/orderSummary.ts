@@ -4,9 +4,9 @@ import dayjs from 'dayjs';
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 
 import { calculateCartQuantity, cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../../data/cart';
-import { deliveryOptions } from '../../data/deliveryOptions';
-import { products } from '../../data/products';
-import { CartProduct, Product } from '../../types';
+import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions';
+import { getProduct } from '../../data/products';
+import { CartProduct, DeliveryOption, Product } from '../../types';
 import { getElement } from '..//utils/dom-utils';
 import { formatCurrency } from '../utils/money';
 
@@ -49,20 +49,19 @@ function renderCartSummary(): void {
   cart.forEach((cartItem) => {
     const productId: string = cartItem.productId;
 
-    const matchingProduct = products.find((product) => product.id === productId);
+    const matchingProduct: Product | undefined = getProduct(productId);
     if (!matchingProduct) {
-      console.error(`No product found with productId: ${productId}`);
       return;
     }
 
     const deliveryOptionId: string = cartItem.deliveryOptionId;
-    const deliveryOption = deliveryOptions.find((option) => option.id === deliveryOptionId);
+    const deliveryOption: DeliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
     const deliveryDate = today.add(
       deliveryOption?.deliveryDays ?? 7, 'day'
     );
-    const dateString = deliveryDate.format('dddd, MMMM D');
+    const dateString: string = deliveryDate.format('dddd, MMMM D');
 
     cartSummayHTML +=
       `
@@ -123,14 +122,14 @@ function deliveryOptionsHTML(matchingProduct: Product, cartItem: CartProduct): s
     const deliveryDate = today.add(
       deliveryOption.deliveryDays, 'day'
     );
-    const dateString = deliveryDate.format('dddd, MMMM D');
+    const dateString: string = deliveryDate.format('dddd, MMMM D');
 
-    const priceString = deliveryOption.priceCents === 0
+    const priceString: string = deliveryOption.priceCents === 0
       ? 'FREE'
       : `$${formatCurrency(deliveryOption.priceCents)} -`;
 
 
-    const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+    const isChecked: boolean = deliveryOption.id === cartItem.deliveryOptionId;
 
     html +=
       `
