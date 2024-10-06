@@ -1,3 +1,4 @@
+import dayjs, { Dayjs } from 'dayjs';
 import { DeliveryOption } from '../types';
 
 export const deliveryOptions: DeliveryOption[] = [{
@@ -18,4 +19,23 @@ export function getDeliveryOption(deliveryOptionId: string): DeliveryOption {
   const deliveryOption = deliveryOptions.find((option) => option.id === deliveryOptionId);
 
   return deliveryOption || deliveryOptions[0];
+}
+
+export function calculateDeliveryDate(deliveryOption: DeliveryOption): string {
+  let deliveryDate: Dayjs = dayjs();
+  let remainingDays: number = deliveryOption.deliveryDays;
+
+  while (remainingDays > 0) {
+    deliveryDate = deliveryDate.add(1, 'day');
+    if (!isWeekend(deliveryDate)) remainingDays--;
+  }
+
+  const dateString: string = deliveryDate.format('dddd, MMMM D');
+
+  return dateString;
+}
+
+function isWeekend(date: Dayjs): boolean {
+  const dayOfWeek: string = date.format('dddd');
+  return dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday';
 }

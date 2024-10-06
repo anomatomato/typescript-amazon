@@ -1,22 +1,13 @@
-// without {} is called default export, use when only want to export 1 thing
-import dayjs from 'dayjs';
-// This is named export
-
-import { calculateCartQuantity, cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../../data/cart';
-import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions';
+import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../../data/cart';
+import { calculateDeliveryDate, deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions';
 import { getProduct } from '../../data/products';
 import { CartProduct, DeliveryOption, Product } from '../../types';
 import { getElement } from '..//utils/dom-utils';
 import { formatCurrency } from '../utils/money';
+import { renderCheckoutHeader } from './checkoutHeader';
 import { renderPaymentSummary } from './paymentSummary';
 
 // --- Main Functions ---
-
-function updateCartQuantity(): void {
-  const cartQuantity: number = calculateCartQuantity();
-  getElement<HTMLAnchorElement>('.js-return-to-home-link')
-    .innerHTML = `${cartQuantity} items`;
-}
 
 function saveNewQuantity(productId: string, newQuantity: number): void {
   if (newQuantity < 0) {
@@ -30,10 +21,6 @@ function saveNewQuantity(productId: string, newQuantity: number): void {
   // Dont update, when newQuantity is NaN or 0
   if (newQuantity) {
     updateQuantity(productId, newQuantity);
-    updateCartQuantity();
-
-    getElement<HTMLSpanElement>(`.js-quantity-label-${productId}`)
-      .innerHTML = newQuantity.toString();
   }
 }
 
@@ -52,11 +39,7 @@ function renderCartSummary(): void {
     const deliveryOptionId: string = cartItem.deliveryOptionId;
     const deliveryOption: DeliveryOption = getDeliveryOption(deliveryOptionId);
 
-    const today = dayjs();
-    const deliveryDate = today.add(
-      deliveryOption?.deliveryDays ?? 7, 'day'
-    );
-    const dateString: string = deliveryDate.format('dddd, MMMM D');
+    const dateString: string = calculateDeliveryDate(deliveryOption);
 
     cartSummayHTML +=
       `
@@ -113,11 +96,7 @@ function deliveryOptionsHTML(matchingProduct: Product, cartItem: CartProduct): s
   let html: string = '';
 
   deliveryOptions.forEach((deliveryOption) => {
-    const today = dayjs();
-    const deliveryDate = today.add(
-      deliveryOption.deliveryDays, 'day'
-    );
-    const dateString: string = deliveryDate.format('dddd, MMMM D');
+    const dateString: string = calculateDeliveryDate(deliveryOption);
 
     const priceString: string = deliveryOption.priceCents === 0
       ? 'FREE'
@@ -179,6 +158,9 @@ function setupEventListeners(): void {
 
           const newQuantity: number = Number(input.value);
           saveNewQuantity(productId, newQuantity);
+
+          renderCheckoutHeader();
+          renderOrderSummary();
           renderPaymentSummary();
         }
       });
@@ -198,6 +180,9 @@ function setupEventListeners(): void {
         const newQuantity: number = Number(getElement<HTMLInputElement>(`.js-quantity-input-${productId}`).value);
 
         saveNewQuantity(productId, newQuantity);
+
+        renderCheckoutHeader();
+        renderOrderSummary();
         renderPaymentSummary();
       });
     });
@@ -214,9 +199,8 @@ function setupEventListeners(): void {
 
         removeFromCart(productId);
 
-        getElement<HTMLDivElement>(`.js-cart-item-container-${productId}`).remove();
-
-        updateCartQuantity();
+        renderCheckoutHeader();
+        renderOrderSummary();
         renderPaymentSummary();
       });
     });
@@ -240,8 +224,12 @@ function setupEventListeners(): void {
 
 // --- Initialize Page ---
 
-export function renderOrderSummary(): void {
+function renderOrderSummary(): void {
   renderCartSummary();
-  updateCartQuantity();
   setupEventListeners();
 }
+
+export {
+  renderOrderSummary
+};
+
