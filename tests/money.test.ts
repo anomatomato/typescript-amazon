@@ -8,17 +8,17 @@ type TestCase = {
 };
 
 const testCases: TestCase[] = [
-  { input: 2095, expected: '20.95', description: 'simple formatting of 2095 cents' },
-  { input: 0, expected: '0.00', description: 'formats zero cents to 0.00' },
-  { input: 2000.5, expected: '20.01', description: 'rounds 2000.5 cents up to nearest cent' },
-  { input: 2000.4, expected: '20.00', description: 'rounds 2000.4 cents down to nearest cent' },
+  { input: 2095, expected: '20.95', description: 'converts cents into dollars' },
+  { input: 0, expected: '0.00', description: 'works with 0' },
+  { input: 2000.5, expected: '20.01', description: 'rounds up to the nearest cent' },
+  { input: 2000.4, expected: '20.00', description: 'rounds down to the nearest cent' },
   { input: 123456789, expected: '1234567.89', description: 'formats large values correctly' },
 ];
 
-describe('formatCurrency function', () => {
+describe('test suite: formatCurrency', () => {
   testCases.forEach(({ input, expected, description }) => {
-    it(`Format Currency: ${description}`, () => {
-      expect(formatCurrency(input)).toBe(expected);
+    it(description, () => {
+      expect(formatCurrency(input)).toEqual(expected);
     });
   });
 });
