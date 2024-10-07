@@ -1,16 +1,20 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  /*root: './src', // Points Vite to the `src` directory where your amazon.html is located
-  publicDir: '../public',
+  base: '/typescript-amazon/', // Ensures asset paths are correct when deployed to GitHub Pages
   build: {
+    outDir: 'dist',
     rollupOptions: {
-      input: 'src/amazon.html',  // HTML-Einstiegspunkt 
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        checkout: path.resolve(__dirname, 'src/checkout.html'),
+        orders: path.resolve(__dirname, 'src/orders.html'),
+        tracking: path.resolve(__dirname, 'src/tracking.html')
+      }
     },
-    emptyOutDir: true,
-    outDir: '../dist', // Where the built files will go
   },
   server: {
-    open: './amazon.html', // Tells Vite to open amazon.html when the server starts
-  },*/
+    open: '/typescript-amazon/'
+  }
 });

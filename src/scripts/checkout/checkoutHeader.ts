@@ -1,13 +1,14 @@
 import { calculateCartQuantity } from '../../data/cart';
+import { baseURL } from '../utils/base-url';
 import { getElement } from '../utils/dom-utils';
 
 export function renderCheckoutHeader(): void {
   const headerHTML: string =
     `
   <div class="checkout-header-left-section">
-    <a href="amazon.html">
-      <img class="amazon-logo" src="/images/amazon-logo.png">
-      <img class="amazon-mobile-logo" src="/images/amazon-mobile-logo.png">
+    <a href="../index.html">
+      <img class="amazon-logo" src="${baseURL}images/amazon-logo.png">
+      <img class="amazon-mobile-logo" src="${baseURL}images/amazon-mobile-logo.png">
     </a>
   </div>
 
@@ -17,8 +18,10 @@ export function renderCheckoutHeader(): void {
   </div>
 
   <div class="checkout-header-right-section">
-    <img src="/images/icons/checkout-lock-icon.png">
+    <img src="${baseURL}images/icons/checkout-lock-icon.png">
   </div>
  `
   getElement<HTMLDivElement>('.js-header-content').innerHTML = headerHTML;
+
+  console.log(import.meta.env.BASE_URL);
 }

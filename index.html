@@ -8,6 +8,8 @@
       smaller screen sizes like a phone or a tablet). -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
   <!-- Load a font called Roboto from Google Fonts. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,41 +22,13 @@
 </head>
 
 <body>
-  <div class="amazon-header">
-    <div class="amazon-header-left-section">
-      <a href="amazon.html" class="header-link">
-        <img class="amazon-logo" src="images/amazon-logo-white.png">
-        <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png">
-      </a>
-    </div>
-
-    <div class="amazon-header-middle-section">
-      <input class="search-bar" type="text" placeholder="Search">
-
-      <button class="search-button">
-        <img class="search-icon" src="images/icons/search-icon.png">
-      </button>
-    </div>
-
-    <div class="amazon-header-right-section">
-      <a class="orders-link header-link" href="/src/orders.html">
-        <span class="returns-text">Returns</span>
-        <span class="orders-text">& Orders</span>
-      </a>
-
-      <a class="cart-link header-link" href="/src/checkout.html">
-        <img class="cart-icon" src="images/icons/cart-icon.png">
-        <div class="js-cart-quantity cart-quantity"></div>
-        <div class="cart-text">Cart</div>
-      </a>
-    </div>
-  </div>
+  <div class="amazon-header js-amazon-header"></div>
 
   <div class="main">
     <div class="products-grid js-products-grid"></div>
   </div>
   <!-- type="module" lets this file get variables out of other files -->
-  <script type="module" src="src/scripts/amazon.ts"></script>
+  <script type="module" src="src/scripts/main.ts"></script>
 </body>
 
 </html>
