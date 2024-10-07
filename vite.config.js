@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: './src', // Points Vite to the `src` directory where your amazon.html is located
+  /*root: './src', // Points Vite to the `src` directory where your amazon.html is located
   publicDir: '../public',
   build: {
     rollupOptions: {
@@ -12,5 +12,5 @@ export default defineConfig({
   },
   server: {
     open: './amazon.html', // Tells Vite to open amazon.html when the server starts
-  },
+  },*/
 });

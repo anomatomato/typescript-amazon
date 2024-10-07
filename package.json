@@ -4,11 +4,15 @@
     "dayjs": "^1.11.13"
   },
   "devDependencies": {
-    "vite": "^5.4.8"
+    "@vitest/coverage-v8": "^2.1.2",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.2"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   }
 }

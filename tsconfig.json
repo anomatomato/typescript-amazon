@@ -10,7 +10,7 @@
     "skipLibCheck": true,
 
     "outDir": "./dist",
-    "rootDir": "./src",
+    //"rootDir": "./src",
     "sourceMap": true,
     
     "paths": {
@@ -19,6 +19,7 @@
   },
   "include": [
     "src/**/*.ts",
+    "tests/**/*.ts",
   ],
   "exclude": [
     "node_modules",

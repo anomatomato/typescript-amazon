@@ -1,2 +1,11 @@
-dist
+# Dependency directory
 node_modules
+
+# Build Output
+dist/
+
+# Coverage output
+coverage/
+
+# IDE-specific files
+.vscode/
