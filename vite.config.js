@@ -16,6 +16,7 @@ export default defineConfig({
   },
   test: {
     environment: 'happy-dom',
+    reporters: ['default'],
   },
   server: {
     open: '/typescript-amazon/'
