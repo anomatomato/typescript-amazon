@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import formatCurrency from '../src/scripts/utils/money';
+import formatCurrency from '../../src/scripts/utils/money';
 
 type TestCase = {
   input: number;

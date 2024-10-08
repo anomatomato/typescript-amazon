@@ -1,4 +1,4 @@
-import { calculateCartQuantity } from '../../data/cart';
+import { calculateCartQuantity } from '../data/cart';
 import { baseURL } from '../utils/base-url';
 import { getElement } from '../utils/dom-utils';
 
@@ -22,6 +22,4 @@ export function renderCheckoutHeader(): void {
   </div>
  `
   getElement<HTMLDivElement>('.js-header-content').innerHTML = headerHTML;
-
-  console.log(import.meta.env.BASE_URL);
 }

@@ -1,9 +1,10 @@
 // 57
-import { calculateCartQuantity, handleAddToCart } from '../data/cart';
-import { products } from '../data/products';
+import { calculateCartQuantity, handleAddToCart } from './data/cart';
+import { products } from './data/products';
 import { baseURL } from './utils/base-url';
 import { getElement } from './utils/dom-utils';
 import { formatCurrency } from './utils/money';
+
 
 // Helper functions
 /**

@@ -1,5 +1,5 @@
-import { baseURL } from '../scripts/utils/base-url';
 import { Product } from '../types';
+import { baseURL } from '../utils/base-url';
 
 export function getProduct(productId: string): Product | undefined {
   const matchingProduct = products.find((product) => product.id === productId);

@@ -1,7 +1,7 @@
-import { calculateCartQuantity, cart } from '../../data/cart';
-import { getDeliveryOption } from '../../data/deliveryOptions';
-import { getProduct } from '../../data/products';
-import { DeliveryOption } from '../../types';
+import { calculateCartQuantity, cart } from '../data/cart';
+import { getDeliveryOption } from '../data/deliveryOptions';
+import { getProduct } from '../data/products';
+import { DeliveryOption } from '../types';
 import { getElement } from '../utils/dom-utils';
 import { formatCurrency } from '../utils/money';
 

@@ -1,8 +1,8 @@
-import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../../data/cart';
-import { calculateDeliveryDate, deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions';
-import { getProduct } from '../../data/products';
-import { CartProduct, DeliveryOption, Product } from '../../types';
 import { getElement } from '..//utils/dom-utils';
+import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../data/cart';
+import { calculateDeliveryDate, deliveryOptions, getDeliveryOption } from '../data/deliveryOptions';
+import { getProduct } from '../data/products';
+import { CartProduct, DeliveryOption, Product } from '../types';
 import { formatCurrency } from '../utils/money';
 import { renderCheckoutHeader } from './checkoutHeader';
 import { renderPaymentSummary } from './paymentSummary';

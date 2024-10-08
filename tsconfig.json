@@ -14,7 +14,7 @@
     "sourceMap": true,
     
     "paths": {
-      "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js": ["./src/types/external/hello.d.ts"],
+      "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js": ["./src/scripts/types/external/hello.d.ts"],
     }
   },
   "include": [

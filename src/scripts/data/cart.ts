@@ -1,7 +1,9 @@
-import { getElement } from '../scripts/utils/dom-utils';
 import { CartProduct } from '../types';
+import { getElement } from '../utils/dom-utils';
 
-let cart: CartProduct[] = loadCartFromStorage();
+let cart: CartProduct[];
+
+loadCartFromStorage();
 
 function handleAddToCart(productId: string): void {
   const quantitySelector = getElement<HTMLSelectElement>(
@@ -60,9 +62,9 @@ function saveCartToStorage(): void {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function loadCartFromStorage(): CartProduct[] {
-  let cart: CartProduct[] = JSON.parse(localStorage.getItem('cart') || '[]');
-  if (!cart.length) {
+function loadCartFromStorage(): void {
+  cart = JSON.parse(localStorage.getItem('cart') || JSON.stringify([]));
+  if (!cart) {
     cart =
       [{
         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -75,7 +77,6 @@ function loadCartFromStorage(): CartProduct[] {
         deliveryOptionId: '2'
       }];
   }
-  return cart;
 }
 
 function updateDeliveryOption(productId: string, deliveryOptionId: string): void {
@@ -90,5 +91,5 @@ function updateDeliveryOption(productId: string, deliveryOptionId: string): void
   saveCartToStorage();
 }
 
-export { calculateCartQuantity, cart, handleAddToCart, removeFromCart, updateDeliveryOption, updateQuantity };
+export { addQuantity, calculateCartQuantity, cart, handleAddToCart, loadCartFromStorage, removeFromCart, updateDeliveryOption, updateQuantity };
 
