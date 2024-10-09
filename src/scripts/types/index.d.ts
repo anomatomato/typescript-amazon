@@ -15,11 +15,13 @@ export type Product = {
 export type CartProduct = {
   productId: string,
   quantity: number,
-  deliveryOptionId: string
+  deliveryOptionId: DeliveryOptionId
 };
 
 export type DeliveryOption = {
-  id: string,
+  id: DeliveryOptionId,
   deliveryDays: number,
   priceCents: number
 }
+
+export type DeliveryOptionId = '1' | '2' | '3';

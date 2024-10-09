@@ -13,6 +13,7 @@ const testCases: TestCase[] = [
   { input: 2000.5, expected: '20.01', description: 'rounds up to the nearest cent' },
   { input: 2000.4, expected: '20.00', description: 'rounds down to the nearest cent' },
   { input: 123456789, expected: '1234567.89', description: 'formats large values correctly' },
+  { input: -1000, expected: '-10.00', description: 'works with negative numbers' },
 ];
 
 describe('test suite: formatCurrency', () => {

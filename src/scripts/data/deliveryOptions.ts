@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { DeliveryOption } from '../types';
+import { DeliveryOption, DeliveryOptionId } from '../types';
 
 export const deliveryOptions: DeliveryOption[] = [{
   id: '1',
@@ -15,7 +15,9 @@ export const deliveryOptions: DeliveryOption[] = [{
   priceCents: 999
 }];
 
-export function getDeliveryOption(deliveryOptionId: string): DeliveryOption {
+export const validDeliveryOptionIds: DeliveryOptionId[] = ['1', '2', '3']
+
+export function getDeliveryOption(deliveryOptionId: DeliveryOptionId): DeliveryOption {
   const deliveryOption = deliveryOptions.find((option) => option.id === deliveryOptionId);
 
   return deliveryOption || deliveryOptions[0];

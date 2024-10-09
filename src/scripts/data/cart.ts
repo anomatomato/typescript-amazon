@@ -1,5 +1,6 @@
-import { CartProduct } from '../types';
+import { CartProduct, DeliveryOptionId } from '../types';
 import { getElement } from '../utils/dom-utils';
+import { validDeliveryOptionIds } from './deliveryOptions';
 
 let cart: CartProduct[];
 
@@ -79,10 +80,13 @@ function loadCartFromStorage(): void {
   }
 }
 
-function updateDeliveryOption(productId: string, deliveryOptionId: string): void {
+function updateDeliveryOption(productId: string, deliveryOptionId: DeliveryOptionId): void {
   const matchingItem = cart.find((cartItem) => cartItem.productId === productId);
   if (!matchingItem) {
     console.error(`No Cart Product found with productID: ${productId}`);
+    return;
+  } else if (!validDeliveryOptionIds.includes(deliveryOptionId)) {
+    console.error(`Not a valid deliveryOptionId: ${deliveryOptionId}`);
     return;
   }
 

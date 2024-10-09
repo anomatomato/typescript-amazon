@@ -1,8 +1,8 @@
-import { getElement } from '..//utils/dom-utils';
 import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../data/cart';
-import { calculateDeliveryDate, deliveryOptions, getDeliveryOption } from '../data/deliveryOptions';
+import { calculateDeliveryDate, deliveryOptions, getDeliveryOption, validDeliveryOptionIds } from '../data/deliveryOptions';
 import { getProduct } from '../data/products';
-import { CartProduct, DeliveryOption, Product } from '../types';
+import { CartProduct, DeliveryOption, DeliveryOptionId, Product } from '../types';
+import { getElement } from '../utils/dom-utils';
 import { formatCurrency } from '../utils/money';
 import { renderCheckoutHeader } from './checkoutHeader';
 import { renderPaymentSummary } from './paymentSummary';
@@ -36,7 +36,7 @@ function renderCartSummary(): void {
       return;
     }
 
-    const deliveryOptionId: string = cartItem.deliveryOptionId;
+    const deliveryOptionId: DeliveryOptionId = cartItem.deliveryOptionId;
     const deliveryOption: DeliveryOption = getDeliveryOption(deliveryOptionId);
 
     const dateString: string = calculateDeliveryDate(deliveryOption);
@@ -55,10 +55,10 @@ function renderCartSummary(): void {
           src="${matchingProduct.image}">
 
         <div class="cart-item-details">
-          <div class="product-name">
+          <div class="product-name js-product-name-${matchingProduct.id}">
             ${matchingProduct.name}
           </div>
-          <div class="product-price">
+          <div class="product-price js-product-price-${matchingProduct.id}">
             $${formatCurrency(matchingProduct.priceCents)}
           </div>
           <div class="product-quantity js-product-quantity-${matchingProduct.id}">
@@ -110,12 +110,13 @@ function deliveryOptionsHTML(matchingProduct: Product, cartItem: CartProduct): s
 
     html +=
       `
-      <div class="delivery-option js-delivery-option"
+      <div class="delivery-option js-delivery-option 
+      js-delivery-option-${matchingProduct.id}-${deliveryOption.id}"
         data-product-id="${matchingProduct.id}"
         data-delivery-option-id=${deliveryOption.id}>
         <input type="radio" 
         ${isChecked ? 'checked' : ''}
-        class="delivery-option-input"
+        class="delivery-option-input js-delivery-option-input-${matchingProduct.id}-${deliveryOption.id}"
           name="delivery-option-${matchingProduct.id}">
         <div>
           <div class="delivery-option-date">
@@ -213,8 +214,8 @@ function setupEventListeners(): void {
       element.addEventListener('click', () => {
         const { productId, deliveryOptionId } = element.dataset;
 
-        if (productId && deliveryOptionId) {
-          updateDeliveryOption(productId, deliveryOptionId);
+        if (productId && deliveryOptionId && validDeliveryOptionIds.includes(deliveryOptionId as DeliveryOptionId)) {
+          updateDeliveryOption(productId, deliveryOptionId as DeliveryOptionId);
           // MVC: Update data, regenrate all the HTML (Model - View - Controller)
           renderOrderSummary();
           renderPaymentSummary();
