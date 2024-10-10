@@ -1,9 +1,7 @@
-// 57
 import { calculateCartQuantity, handleAddToCart } from './data/cart';
 import { products } from './data/products';
 import { baseURL } from './utils/base-url';
 import { getElement } from './utils/dom-utils';
-import { formatCurrency } from './utils/money';
 
 
 // Helper functions
@@ -80,14 +78,14 @@ const productsHTML: string = products.map((product) =>
 
       <div class="product-rating-container">
         <img class="product-rating-stars"
-          src="${baseURL}images/ratings/rating-${product.rating.stars * 10}.png">
+          src="${product.getStarsUrl()}">
         <div class="product-rating-count link-primary">
           ${product.rating.count}
         </div>
       </div>
 
       <div class="product-price">
-        $${formatCurrency(product.priceCents)}
+        ${product.getPrice()}
       </div>
 
       <div class="product-quantity-container">

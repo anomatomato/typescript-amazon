@@ -1,7 +1,7 @@
 import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../data/cart';
 import { calculateDeliveryDate, deliveryOptions, getDeliveryOption, validDeliveryOptionIds } from '../data/deliveryOptions';
-import { getProduct } from '../data/products';
-import { CartProduct, DeliveryOption, DeliveryOptionId, Product } from '../types';
+import { getProduct, Product } from '../data/products';
+import { CartProduct, DeliveryOption, DeliveryOptionId } from '../types';
 import { getElement } from '../utils/dom-utils';
 import { formatCurrency } from '../utils/money';
 import { renderCheckoutHeader } from './checkoutHeader';
@@ -59,7 +59,7 @@ function renderCartSummary(): void {
             ${matchingProduct.name}
           </div>
           <div class="product-price js-product-price-${matchingProduct.id}">
-            $${formatCurrency(matchingProduct.priceCents)}
+            ${matchingProduct.getPrice()}
           </div>
           <div class="product-quantity js-product-quantity-${matchingProduct.id}">
             <span>

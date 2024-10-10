@@ -1,5 +1,6 @@
-import { Product } from '../types';
+import { ProductDetails } from '../types';
 import { baseURL } from '../utils/base-url';
+import { formatCurrency } from '../utils/money';
 
 export function getProduct(productId: string): Product | undefined {
   const matchingProduct = products.find((product) => product.id === productId);
@@ -7,6 +8,39 @@ export function getProduct(productId: string): Product | undefined {
     console.error(`No product found with productId: ${productId}`);
   }
   return matchingProduct;
+}
+
+export class Product {
+  id: string;
+  image: string;
+  name: string;
+  rating: {
+    stars: number,
+    count: number
+  };
+  priceCents: number;
+  keywords: string[];
+  type?: string;
+  sizeChartLink?: string;
+
+  constructor(productDetails: ProductDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
+    if (productDetails.type) this.type = productDetails.type;
+    if (productDetails.sizeChartLink) this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  getStarsUrl(): string {
+    return `${baseURL}images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  getPrice(): string {
+    return `$${formatCurrency(this.priceCents)}`;
+  }
 }
 
 export const products: Product[] = [
@@ -695,4 +729,6 @@ export const products: Product[] = [
       "umbrellas"
     ]
   }
-];
+].map((productDetails) => {
+  return new Product(productDetails);
+});

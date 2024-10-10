@@ -3,7 +3,7 @@ import { CartProduct, DeliveryOptionId } from '../types';
 import { getElement } from '../utils/dom-utils';
 import { validDeliveryOptionIds } from './deliveryOptions';
 
-class Cart {
+export class Cart {
   cartItems: CartProduct[] = [];
   #localStorageKey: string;
 
@@ -101,7 +101,3 @@ class Cart {
 
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
-
-console.log(cart);
-console.log(businessCart);
-console.log(businessCart instanceof Cart);
