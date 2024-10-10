@@ -1,16 +1,19 @@
-export type ProductDetails = {
-  id: string,
-  image: string,
-  name: string,
+export interface ProductDetails {
+  id: string;
+  image: string;
+  name: string;
   rating: {
-    stars: number,
+    stars: number;
     count: number
-  },
-  priceCents: number,
-  keywords: string[],
-  type?: string,
-  sizeChartLink?: string
+  };
+  priceCents: number;
+  keywords: string[];
+  type?: string;
 };
+
+export interface ClothingDetails extends ProductDetails {
+  sizeChartLink: string;
+}
 
 export type CartProduct = {
   productId: string,

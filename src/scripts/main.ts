@@ -103,6 +103,8 @@ const productsHTML: string = products.map((product) =>
         </select>
       </div>
 
+      ${product.extraInfoHTML()}
+
       <div class="product-spacer"></div>
 
       <div class="js-added-to-cart-${product.id} added-to-cart">

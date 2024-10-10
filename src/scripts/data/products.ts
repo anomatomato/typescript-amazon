@@ -1,4 +1,5 @@
-import { ProductDetails } from '../types';
+// Polymorphism = use a method without knowing the class
+import { ClothingDetails, ProductDetails } from '../types';
 import { baseURL } from '../utils/base-url';
 import { formatCurrency } from '../utils/money';
 
@@ -21,7 +22,6 @@ export class Product {
   priceCents: number;
   keywords: string[];
   type?: string;
-  sizeChartLink?: string;
 
   constructor(productDetails: ProductDetails) {
     this.id = productDetails.id;
@@ -30,8 +30,7 @@ export class Product {
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
     this.keywords = productDetails.keywords;
-    if (productDetails.type) this.type = productDetails.type;
-    if (productDetails.sizeChartLink) this.sizeChartLink = productDetails.sizeChartLink;
+    this.type = productDetails.type;
   }
 
   getStarsUrl(): string {
@@ -40,6 +39,27 @@ export class Product {
 
   getPrice(): string {
     return `$${formatCurrency(this.priceCents)}`;
+  }
+
+  extraInfoHTML(): string {
+    return '';
+  }
+}
+
+class Clothing extends Product {
+  sizeChartLink: string;
+
+  constructor(clothingDetails: ClothingDetails) {
+    super(clothingDetails);
+    this.sizeChartLink = clothingDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(): string {
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
   }
 }
 
@@ -730,5 +750,8 @@ export const products: Product[] = [
     ]
   }
 ].map((productDetails) => {
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 });
