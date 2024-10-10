@@ -5,15 +5,15 @@ import { validDeliveryOptionIds } from './deliveryOptions';
 
 class Cart {
   cartItems: CartProduct[] = [];
-  localStorageKey: string;
+  #localStorageKey: string;
 
   constructor(localStorageKey: string) {
-    this.localStorageKey = localStorageKey;
-    this.loadCartFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadCartFromStorage();
   }
 
-  loadCartFromStorage(): void {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey) || JSON.stringify(undefined));
+  #loadCartFromStorage(): void {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey) || JSON.stringify(undefined));
     if (!this.cartItems) {
       this.cartItems =
         [{
@@ -31,7 +31,7 @@ class Cart {
   }
 
   saveCartToStorage(): void {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   addToCart(productId: string): void {
@@ -102,8 +102,6 @@ class Cart {
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
-
 console.log(cart);
 console.log(businessCart);
-
 console.log(businessCart instanceof Cart);
