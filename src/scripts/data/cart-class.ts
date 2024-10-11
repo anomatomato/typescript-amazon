@@ -13,7 +13,7 @@ export class Cart {
   }
 
   #loadCartFromStorage(): void {
-    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey) || JSON.stringify(undefined));
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey) || JSON.stringify(null));
     if (!this.cartItems) {
       this.cartItems =
         [{
@@ -98,6 +98,4 @@ export class Cart {
   }
 }
 
-
-const cart = new Cart('cart-oop');
-const businessCart = new Cart('cart-business');
+export const cart = new Cart('cart');

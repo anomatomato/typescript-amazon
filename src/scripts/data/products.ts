@@ -1,5 +1,5 @@
 // Polymorphism = use a method without knowing the class
-import { ClothingDetails, ProductDetails } from '../types';
+import { ApplianceDetails, ClothingDetails, ProductDetails } from '../types';
 import { baseURL } from '../utils/base-url';
 import { formatCurrency } from '../utils/money';
 
@@ -46,7 +46,7 @@ export class Product {
   }
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink: string;
 
   constructor(clothingDetails: ClothingDetails) {
@@ -63,36 +63,27 @@ class Clothing extends Product {
   }
 }
 
-/*
-const date = new Date();
-console.log(date);
-console.log(date.toLocaleTimeString());
-*/
+export class Appliance extends Product {
+  instructionsLink: string;
+  warrantyLink: string;
 
-/*
-console.log(this);
-
-const object2 = {
-  a: 2,
-  b: this.a
-};
-*/
-
-/*
-function logThis() {
-  // Inside function, we can change this to whatever we want
-  console.log(this);
-}
-logThis();
-logThis.call('hello');
-
-const object3 = {
-  method: () => {
-    console.log(this);
+  constructor(applianceDetails: ApplianceDetails) {
+    super(applianceDetails);
+    this.instructionsLink = applianceDetails.instructionsLink;
+    this.warrantyLink = applianceDetails.warrantyLink;
   }
-};
-console.log(object3.method())
-*/
+
+  extraInfoHTML(): string {
+    return `
+      <a href="${this.instructionsLink}" target="_blank">
+        Instructions
+      </a> 
+      <a href="${this.warrantyLink}" target="_blank">
+        Warranty
+      </a> 
+    `;
+  }
+}
 
 export const products: Product[] = [
   {
@@ -154,7 +145,10 @@ export const products: Product[] = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: `${baseURL}images/appliance-instructions.png`,
+    warrantyLink: `${baseURL}images/appliance-warranty.png`
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -339,7 +333,10 @@ export const products: Product[] = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: `${baseURL}images/appliance-instructions.png`,
+    warrantyLink: `${baseURL}images/appliance-warranty.png`
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -704,7 +701,11 @@ export const products: Product[] = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionsLink: `${baseURL}images/appliance-instructions.png`,
+    warrantyLink: `${baseURL}images/appliance-warranty.png`
+
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -782,7 +783,16 @@ export const products: Product[] = [
   }
 ].map((productDetails) => {
   if (productDetails.type === 'clothing') {
-    return new Clothing(productDetails);
+    return new Clothing({
+      ...productDetails,
+      sizeChartLink: productDetails.sizeChartLink || `${baseURL}images/clothing-size-chart.png`
+    });
+  } else if (productDetails.type === 'appliance') {
+    return new Appliance({
+      ...productDetails,
+      instructionsLink: `${baseURL}images/appliance-instructions.png`,
+      warrantyLink: `${baseURL}images/appliance-warranty.png`
+    });
   }
   return new Product(productDetails);
 });

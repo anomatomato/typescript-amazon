@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { cart, handleAddToCart, loadCartFromStorage, removeFromCart, updateDeliveryOption } from '../../src/scripts/data/cart';
+import { cart } from '../../src/scripts/data/cart-class';
 import { CartProduct } from '../../src/scripts/types';
 
 
@@ -31,41 +31,35 @@ describe('test suite: handleAddToCart', () => {
   });
 
   it('adds an existing product to the cart', () => {
-    vi.spyOn(localStorage, 'getItem').mockImplementation(vi.fn(() => {
-      return JSON.stringify(mockCart);
-    }))
+    cart.cartItems = mockCart.map((item) => ({ ...item }));
 
-    loadCartFromStorage();
-    handleAddToCart(productId);
+    cart.addToCart(productId);
 
-    expect(cart.length).toEqual(1);
+    expect(cart.cartItems.length).toEqual(1);
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([{
       productId,
       quantity: 3,
       deliveryOptionId: '1'
     }]));
-    expect(cart[0].productId).toEqual(productId);
-    expect(cart[0].quantity).toEqual(3);
+    expect(cart.cartItems[0].productId).toEqual(productId);
+    expect(cart.cartItems[0].quantity).toEqual(3);
   });
 
   it('adds a new product to the cart', () => {
-    vi.spyOn(localStorage, 'getItem').mockImplementation(vi.fn(() => {
-      return JSON.stringify([]);
-    }))
+    cart.cartItems = [];
 
-    loadCartFromStorage();
-    handleAddToCart(productId);
+    cart.addToCart(productId);
 
-    expect(cart.length).toEqual(1);
+    expect(cart.cartItems.length).toEqual(1);
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([{
       productId,
       quantity: 2,
       deliveryOptionId: '1'
     }]));
-    expect(cart[0].productId).toEqual(productId);
-    expect(cart[0].quantity).toEqual(2);
+    expect(cart.cartItems[0].productId).toEqual(productId);
+    expect(cart.cartItems[0].quantity).toEqual(2);
   });
 });
 
@@ -81,11 +75,7 @@ describe('test suite: removeFromCart', () => {
     vi.spyOn(localStorage, 'setItem').mockImplementation(vi.fn(() => {
 
     }))
-    vi.spyOn(localStorage, 'getItem').mockImplementation(vi.fn(() => {
-      return JSON.stringify(mockCart);
-    }))
-
-    loadCartFromStorage()
+    cart.cartItems = mockCart.map((item) => ({ ...item }));
   })
 
   afterEach(() => {
@@ -93,19 +83,18 @@ describe('test suite: removeFromCart', () => {
   })
 
   it('remove an existing product from the cart', () => {
-    removeFromCart(productId);
+    cart.removeFromCart(productId);
 
-    expect(cart.length).toEqual(0);
+    expect(cart.cartItems.length).toEqual(0);
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([]));
   })
   it('remove a non-existing product from the cart', () => {
-    console.log(cart);
-    removeFromCart(productId + 'random');
+    cart.removeFromCart(productId + 'random');
 
-    expect(cart.length).toEqual(1);
-    expect(cart[0].productId).toEqual(productId);
-    expect(cart[0].quantity).toEqual(1);
+    expect(cart.cartItems.length).toEqual(1);
+    expect(cart.cartItems[0].productId).toEqual(productId);
+    expect(cart.cartItems[0].quantity).toEqual(1);
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify(mockCart));
   })
@@ -121,10 +110,7 @@ describe('test suite: updateDeliveryOption', () => {
 
   beforeEach(() => {
     vi.spyOn(localStorage, 'setItem').mockImplementation(vi.fn())
-    vi.spyOn(localStorage, 'getItem').mockImplementation(vi.fn(() => {
-      return JSON.stringify(mockCart);
-    }));
-    loadCartFromStorage();
+    cart.cartItems = mockCart.map((item) => ({ ...item }));
   });
 
   afterEach(() => {
@@ -132,12 +118,12 @@ describe('test suite: updateDeliveryOption', () => {
   })
 
   it('updates delivery option of an existing product in the cart', () => {
-    updateDeliveryOption(productId, '2');
+    cart.updateDeliveryOption(productId, '2');
 
-    expect(cart.length).toEqual(1);
-    expect(cart[0].productId).toEqual(productId);
-    expect(cart[0].quantity).toEqual(1);
-    expect(cart[0].deliveryOptionId).toEqual('2');
+    expect(cart.cartItems.length).toEqual(1);
+    expect(cart.cartItems[0].productId).toEqual(productId);
+    expect(cart.cartItems[0].quantity).toEqual(1);
+    expect(cart.cartItems[0].deliveryOptionId).toEqual('2');
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([{
       productId,
@@ -147,23 +133,24 @@ describe('test suite: updateDeliveryOption', () => {
   });
 
   it('does nothing when product is not in the cart', () => {
-    updateDeliveryOption('non existing productID', '3');
+    cart.cartItems = mockCart;
+    cart.updateDeliveryOption('non existing productID', '3');
 
-    expect(cart.length).toEqual(1);
-    expect(cart[0].productId).toEqual(productId);
-    expect(cart[0].quantity).toEqual(1);
-    expect(cart[0].deliveryOptionId).toEqual('1');
+    expect(cart.cartItems.length).toEqual(1);
+    expect(cart.cartItems[0].productId).toEqual(productId);
+    expect(cart.cartItems[0].quantity).toEqual(1);
+    expect(cart.cartItems[0].deliveryOptionId).toEqual('1');
     expect(localStorage.setItem).toHaveBeenCalledTimes(0);
   });
 
   it('does nothing when deliveryOptionId is invalid', () => {
     // @ts-ignore
-    updateDeliveryOption(productId, '4');
+    cart.updateDeliveryOption(productId, '4');
 
-    expect(cart.length).toEqual(1);
-    expect(cart[0].productId).toEqual(productId);
-    expect(cart[0].quantity).toEqual(1);
-    expect(cart[0].deliveryOptionId).toEqual('1');
+    expect(cart.cartItems.length).toEqual(1);
+    expect(cart.cartItems[0].productId).toEqual(productId);
+    expect(cart.cartItems[0].quantity).toEqual(1);
+    expect(cart.cartItems[0].deliveryOptionId).toEqual('1');
     expect(localStorage.setItem).toHaveBeenCalledTimes(0);
   });
 });

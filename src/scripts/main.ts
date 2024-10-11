@@ -1,4 +1,4 @@
-import { calculateCartQuantity, handleAddToCart } from './data/cart';
+import { cart } from './data/cart-class';
 import { products } from './data/products';
 import { baseURL } from './utils/base-url';
 import { getElement } from './utils/dom-utils';
@@ -21,7 +21,7 @@ function showAddedToCartMessage(productId: string): number {
 
 // Handles webpage content, so this function stays here
 function updateCartQuantity(): void {
-  const cartQuantity: number = calculateCartQuantity();
+  const cartQuantity: number = cart.calculateCartQuantity();
   getElement('.js-cart-quantity').innerHTML = cartQuantity.toString();
 }
 
@@ -136,7 +136,7 @@ document.querySelectorAll<HTMLButtonElement>('.js-add-to-cart')
         return;
       }
 
-      handleAddToCart(productId);
+      cart.addToCart(productId);
       updateCartQuantity();
       timeoutId = showAddedToCartMessage(productId);
     });

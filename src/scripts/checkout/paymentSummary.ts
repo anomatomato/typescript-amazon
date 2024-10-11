@@ -1,4 +1,4 @@
-import { calculateCartQuantity, cart } from '../data/cart';
+import { cart } from '../data/cart-class';
 import { getDeliveryOption } from '../data/deliveryOptions';
 import { getProduct } from '../data/products';
 import { DeliveryOption } from '../types';
@@ -9,7 +9,7 @@ export function renderPaymentSummary() {
   let productPriceCents: number = 0;
   let shippingPriceCents: number = 0;
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
     if (!product) {
       return;
@@ -31,7 +31,7 @@ export function renderPaymentSummary() {
     </div>
 
     <div class="payment-summary-row">
-      <div>Items (${calculateCartQuantity()}):</div>
+      <div>Items (${cart.calculateCartQuantity()}):</div>
       <div class="payment-summary-money">$${formatCurrency(productPriceCents)}</div>
     </div>
 

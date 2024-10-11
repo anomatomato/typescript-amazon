@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderOrderSummary } from "../../src/scripts/checkout/orderSummary";
 import { renderPaymentSummary } from "../../src/scripts/checkout/paymentSummary";
-import { cart, loadCartFromStorage } from "../../src/scripts/data/cart";
+import { cart } from "../../src/scripts/data/cart-class";
 import { getElement } from "../../src/scripts/utils/dom-utils";
 
 /** Things to test:
@@ -31,8 +31,8 @@ describe('test suite: renderOrderSummary', () => {
     vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
       // Do nothing
     });
-    vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
-      return JSON.stringify([{
+    cart.cartItems =
+      [{
         productId: productId1,
         quantity: 2,
         deliveryOptionId: '1'
@@ -41,9 +41,7 @@ describe('test suite: renderOrderSummary', () => {
         productId: productId2,
         quantity: 1,
         deliveryOptionId: '2'
-      }]);
-    });
-    loadCartFromStorage();
+      }];
 
     renderOrderSummary();
   });
@@ -103,8 +101,8 @@ describe('test suite: renderOrderSummary', () => {
       getElement<HTMLDivElement>(`.js-product-price-${productId2}`).innerText.trim()
     ).toEqual(productPrice2);
 
-    expect(cart.length).toEqual(1);
-    expect(cart[0].productId).toEqual(productId2);
+    expect(cart.cartItems.length).toEqual(1);
+    expect(cart.cartItems[0].productId).toEqual(productId2);
   });
 
   it('updated the delivery option', () => {
@@ -114,9 +112,9 @@ describe('test suite: renderOrderSummary', () => {
     renderPaymentSummary();
 
     expect(inputElement.checked).toEqual(true);
-    expect(cart.length).toEqual(2);
-    expect(cart[0].productId).toEqual(productId1);
-    expect(cart[0].deliveryOptionId).toEqual('3');
+    expect(cart.cartItems.length).toEqual(2);
+    expect(cart.cartItems[0].productId).toEqual(productId1);
+    expect(cart.cartItems[0].deliveryOptionId).toEqual('3');
 
     expect(
       getElement<HTMLDivElement>('.js-payment-summary-shipping').innerText.trim()

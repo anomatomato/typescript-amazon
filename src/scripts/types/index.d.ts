@@ -15,6 +15,11 @@ export interface ClothingDetails extends ProductDetails {
   sizeChartLink: string;
 }
 
+export interface ApplianceDetails extends ProductDetails {
+  instructionsLink: string;
+  warrantyLink: string;
+}
+
 export type CartProduct = {
   productId: string,
   quantity: number,

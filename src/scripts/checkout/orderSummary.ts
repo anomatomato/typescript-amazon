@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateDeliveryOption, updateQuantity } from '../data/cart';
+import { cart } from '../data/cart-class';
 import { calculateDeliveryDate, deliveryOptions, getDeliveryOption, validDeliveryOptionIds } from '../data/deliveryOptions';
 import { getProduct, Product } from '../data/products';
 import { CartProduct, DeliveryOption, DeliveryOptionId } from '../types';
@@ -20,7 +20,7 @@ function saveNewQuantity(productId: string, newQuantity: number): void {
 
   // Dont update, when newQuantity is NaN or 0
   if (newQuantity) {
-    updateQuantity(productId, newQuantity);
+    cart.updateQuantity(productId, newQuantity);
   }
 }
 
@@ -28,7 +28,7 @@ function saveNewQuantity(productId: string, newQuantity: number): void {
 function renderCartSummary(): void {
   let cartSummayHTML: string = '';
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     const productId: string = cartItem.productId;
 
     const matchingProduct: Product | undefined = getProduct(productId);
@@ -201,7 +201,7 @@ function setupEventListeners(): void {
           return;
         }
 
-        removeFromCart(productId);
+        cart.removeFromCart(productId);
 
         renderCheckoutHeader();
         renderOrderSummary();
@@ -215,7 +215,7 @@ function setupEventListeners(): void {
         const { productId, deliveryOptionId } = element.dataset;
 
         if (productId && deliveryOptionId && validDeliveryOptionIds.includes(deliveryOptionId as DeliveryOptionId)) {
-          updateDeliveryOption(productId, deliveryOptionId as DeliveryOptionId);
+          cart.updateDeliveryOption(productId, deliveryOptionId as DeliveryOptionId);
           // MVC: Update data, regenrate all the HTML (Model - View - Controller)
           renderOrderSummary();
           renderPaymentSummary();
