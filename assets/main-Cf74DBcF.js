@@ -1,8 +1,8 @@
-import{p as o,b as t,f as n,g as i,h as r,c}from"./money-1f0Yfm4h.js";/* empty css                *//* empty css                      */function d(a){const s=i(`.js-added-to-cart-${a}`);return s.classList.add("added-to-cart-visible"),setTimeout(()=>{s.classList.remove("added-to-cart-visible")},2e3)}function e(){const a=c();i(".js-cart-quantity").innerHTML=a.toString()}function l(){const a=` 
+import{l as r,g as s,p as c,c as e}from"./products-Bo7-c471.js";/* empty css                *//* empty css                      */function d(t){const a=s(`.js-added-to-cart-${t}`);return a.classList.add("added-to-cart-visible"),setTimeout(()=>{a.classList.remove("added-to-cart-visible")},2e3)}function o(){const t=e.calculateCartQuantity();s(".js-cart-quantity").innerHTML=t.toString()}function l(){const t=` 
       <div class="amazon-header-left-section">
         <a href="index.html" class="header-link">
-          <img class="amazon-logo" src="${t}images/amazon-logo-white.png">
-          <img class="amazon-mobile-logo" src="${t}images/amazon-mobile-logo-white.png">
+          <img class="amazon-logo" src="images/amazon-logo-white.png">
+          <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png">
         </a>
       </div>
 
@@ -10,23 +10,23 @@ import{p as o,b as t,f as n,g as i,h as r,c}from"./money-1f0Yfm4h.js";/* empty c
         <input class="search-bar" type="text" placeholder="Search">
 
         <button class="search-button">
-          <img class="search-icon" src="${t}images/icons/search-icon.png">
+          <img class="search-icon" src="images/icons/search-icon.png">
         </button>
       </div>
 
       <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="${t}src/orders.html">
+        <a class="orders-link header-link" href="orders.html">
           <span class="returns-text">Returns</span>
           <span class="orders-text">& Orders</span>
         </a>
 
-        <a class="cart-link header-link" href="${t}src/checkout.html">
-          <img class="cart-icon" src="${t}images/icons/cart-icon.png">
+        <a class="cart-link header-link" href="checkout.html">
+          <img class="cart-icon" src="images/icons/cart-icon.png">
           <div class="js-cart-quantity cart-quantity"></div>
           <div class="cart-text">Cart</div>
         </a>
       </div>
-    `;i(".js-amazon-header").innerHTML=a}l();const p=o.map(a=>`
+    `;s(".js-amazon-header").innerHTML=t}function n(){const t=c.map(a=>`
     <div class="product-container">
       <div class="product-image-container">
         <img class="product-image"
@@ -39,14 +39,14 @@ import{p as o,b as t,f as n,g as i,h as r,c}from"./money-1f0Yfm4h.js";/* empty c
 
       <div class="product-rating-container">
         <img class="product-rating-stars"
-          src="${t}images/ratings/rating-${a.rating.stars*10}.png">
+          src="${a.getStarsUrl()}">
         <div class="product-rating-count link-primary">
           ${a.rating.count}
         </div>
       </div>
 
       <div class="product-price">
-        $${n(a.priceCents)}
+        ${a.getPrice()}
       </div>
 
       <div class="product-quantity-container">
@@ -64,10 +64,12 @@ import{p as o,b as t,f as n,g as i,h as r,c}from"./money-1f0Yfm4h.js";/* empty c
         </select>
       </div>
 
+      ${a.extraInfoHTML()}
+
       <div class="product-spacer"></div>
 
       <div class="js-added-to-cart-${a.id} added-to-cart">
-        <img src="${t}images/icons/checkmark.png">
+        <img src="images/icons/checkmark.png">
         Added
       </div>
 
@@ -76,4 +78,4 @@ import{p as o,b as t,f as n,g as i,h as r,c}from"./money-1f0Yfm4h.js";/* empty c
         Add to Cart
       </button>
     </div>
-  `).join("");i(".js-products-grid").innerHTML=p;e();document.querySelectorAll(".js-add-to-cart").forEach(a=>{a.addEventListener("click",()=>{const{productId:s}=a.dataset;if(!s){console.error(`No Product ID data for button: ${a}`);return}r(s),e(),d(s)})});
+  `).join("");s(".js-products-grid").innerHTML=t,o(),document.querySelectorAll(".js-add-to-cart").forEach(a=>{a.addEventListener("click",()=>{const{productId:i}=a.dataset;if(!i){console.error(`No Product ID data for button: ${a}`);return}e.addToCart(i),o(),d(i)})})}r(n);l();n();
