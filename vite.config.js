@@ -8,9 +8,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-        checkout: path.resolve(__dirname, 'src/checkout.html'),
-        orders: path.resolve(__dirname, 'src/orders.html'),
-        tracking: path.resolve(__dirname, 'src/tracking.html')
+        checkout: path.resolve(__dirname, 'checkout.html'),
+        orders: path.resolve(__dirname, 'orders.html'),
+        tracking: path.resolve(__dirname, 'tracking.html')
       }
     },
   },
