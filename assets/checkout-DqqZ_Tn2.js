@@ -1,6 +1,6 @@
 import{c as d,g as r,a as y,b as $,f as s,d as h,e as g,v as j,h as k,i as q}from"./products-CDbJ0ow7.js";/* empty css                */function p(){const t=`
   <div class="checkout-header-left-section">
-    <a href="../index.html">
+    <a href="index.html">
       <img class="amazon-logo" src="images/amazon-logo.png">
       <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
     </a>
@@ -8,7 +8,7 @@ import{c as d,g as r,a as y,b as $,f as s,d as h,e as g,v as j,h as k,i as q}fro
 
   <div class="checkout-header-middle-section">
     Checkout (<a class="return-to-home-link js-return-to-home-link"
-      href="../index.html">${d.calculateCartQuantity()} items</a>)
+      href="index.html">${d.calculateCartQuantity()} items</a>)
   </div>
 
   <div class="checkout-header-right-section">
