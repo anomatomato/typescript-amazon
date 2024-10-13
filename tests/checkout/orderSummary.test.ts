@@ -2,6 +2,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { renderOrderSummary } from "../../src/scripts/checkout/orderSummary";
 import { renderPaymentSummary } from "../../src/scripts/checkout/paymentSummary";
 import { cart } from "../../src/scripts/data/cart-class";
+import { loadProductsFetch } from "../../src/scripts/data/products";
 import { getElement } from "../../src/scripts/utils/dom-utils";
 
 /** Things to test:
@@ -17,7 +18,7 @@ describe('test suite: renderOrderSummary', () => {
   const productPrice2: string = '$20.95';
 
   beforeAll(() => {
-
+    return loadProductsFetch();
   });
 
   beforeEach(() => {

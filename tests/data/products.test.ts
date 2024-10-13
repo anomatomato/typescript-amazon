@@ -43,7 +43,7 @@ describe('test suite: Product class', () => {
   });
 
   it('gets the correct stars url', () => {
-    expect(product.getStarsUrl()).toEqual(`${baseURL}images/ratings/rating-45.png`)
+    expect(product.getStarsUrl()).toEqual(`images/ratings/rating-45.png`)
   });
 
   it('gets the correct price', () => {
@@ -95,7 +95,7 @@ describe('test suite: Clothing class', () => {
   });
 
   it('gets the correct stars url', () => {
-    expect(clothing.getStarsUrl()).toEqual(`${baseURL}images/ratings/rating-45.png`)
+    expect(clothing.getStarsUrl()).toEqual(`images/ratings/rating-45.png`)
   });
 
   it('gets the correct price', () => {
@@ -151,7 +151,7 @@ describe('test suite: Appliance class', () => {
   });
 
   it('gets the correct stars url', () => {
-    expect(appliance.getStarsUrl()).toEqual(`${baseURL}images/ratings/rating-50.png`)
+    expect(appliance.getStarsUrl()).toEqual(`images/ratings/rating-50.png`)
   });
 
   it('gets the correct price', () => {
