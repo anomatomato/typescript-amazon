@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderOrderSummary } from "../../src/scripts/checkout/orderSummary";
 import { renderPaymentSummary } from "../../src/scripts/checkout/paymentSummary";
 import { cart } from "../../src/scripts/data/cart-class";
@@ -15,6 +15,10 @@ describe('test suite: renderOrderSummary', () => {
   const productId2: string = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
   const productName2: string = 'Intermediate Size Basketball';
   const productPrice2: string = '$20.95';
+
+  beforeAll(() => {
+
+  });
 
   beforeEach(() => {
     const orderSummary = document.createElement('div');
