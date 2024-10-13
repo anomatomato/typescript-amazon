@@ -61,6 +61,7 @@ export class Cart {
 
     this.saveCartToStorage();
   }
+
   updateDeliveryOption(productId: string, deliveryOptionId: DeliveryOptionId): void {
     const matchingItem = this.cartItems.find((cartItem) => cartItem.productId === productId);
     if (!matchingItem) {
