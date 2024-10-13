@@ -6,14 +6,23 @@ import { loadProductsFetch } from './data/products';
 // import './data/backend-practice';
 
 async function loadPage(): Promise<void> {
-  await Promise.all([
-    loadProductsFetch(),
-    new Promise<void>((resolve) => {
-      loadCart(() => {
-        resolve();
+  try {
+    await Promise.all([
+      loadProductsFetch(),
+      new Promise<void>((resolve, reject) => {
+        // throw 'error2';
+        loadCart(() => {
+          // reject creates error in the future
+          // reject('error2');
+          resolve();
+        })
       })
-    })
-  ])
+    ])
+  }
+  catch (error) {
+    console.log(error);
+    console.log('Unexpected error. Please try again later.');
+  }
 
   renderCheckoutHeader();
   renderOrderSummary();
