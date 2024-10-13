@@ -1,4 +1,4 @@
-import{c as d,g as r,a as y,b as $,f as s,d as f,e as g,v as j,l as k}from"./products-Bo7-c471.js";/* empty css                */function p(){const t=`
+import{c as d,g as r,a as y,b as $,f as s,d as h,e as g,v as j,h as k,i as q}from"./products-CDbJ0ow7.js";/* empty css                */function p(){const t=`
   <div class="checkout-header-left-section">
     <a href="../index.html">
       <img class="amazon-logo" src="images/amazon-logo.png">
@@ -14,7 +14,7 @@ import{c as d,g as r,a as y,b as $,f as s,d as f,e as g,v as j,l as k}from"./pro
   <div class="checkout-header-right-section">
     <img src="images/icons/checkout-lock-icon.png">
   </div>
- `;r(".js-header-content").innerHTML=t}function l(){let t=0,i=0;d.cartItems.forEach(n=>{const m=y(n.productId);if(!m)return;t+=m.priceCents*n.quantity;const h=$(n.deliveryOptionId);i+=h.priceCents});const a=t+i,e=a*.1,o=a+e,c=`
+ `;r(".js-header-content").innerHTML=t}function l(){let t=0,i=0;d.cartItems.forEach(n=>{const m=y(n.productId);if(!m)return;t+=m.priceCents*n.quantity;const f=$(n.deliveryOptionId);i+=f.priceCents});const a=t+i,e=a*.1,o=a+e,c=`
     <div class="payment-summary-title">
       Order Summary
     </div>
@@ -47,7 +47,7 @@ import{c as d,g as r,a as y,b as $,f as s,d as f,e as g,v as j,l as k}from"./pro
     <button class="place-order-button button-primary">
       Place your order
     </button>
-  `;r(".js-payment-summary").innerHTML=c}function v(t,i){if(i<0){alert("Quantity must be at least 0");return}r(`.js-cart-item-container-${t}`).classList.remove("is-editing-quantity"),i&&d.updateQuantity(t,i)}function q(){let t="";d.cartItems.forEach(i=>{const a=i.productId,e=y(a);if(!e)return;const o=i.deliveryOptionId,c=$(o),n=f(c);t+=`
+  `;r(".js-payment-summary").innerHTML=c}function v(t,i){if(i<0){alert("Quantity must be at least 0");return}r(`.js-cart-item-container-${t}`).classList.remove("is-editing-quantity"),i&&d.updateQuantity(t,i)}function I(){let t="";d.cartItems.forEach(i=>{const a=i.productId,e=y(a);if(!e)return;const o=i.deliveryOptionId,c=$(o),n=h(c);t+=`
     <div class="cart-item-container 
     js-cart-item-container 
     js-cart-item-container-${e.id}">
@@ -90,11 +90,11 @@ import{c as d,g as r,a as y,b as $,f as s,d as f,e as g,v as j,l as k}from"./pro
           <div class="delivery-options-title">
             Choose a delivery option:
           </div>
-          ${I(e,i)}
+          ${C(e,i)}
         </div>
       </div>
     </div>
-  `}),r(".js-order-summary").innerHTML=t}function I(t,i){let a="";return g.forEach(e=>{const o=f(e),c=e.priceCents===0?"FREE":`$${s(e.priceCents)} -`,n=e.id===i.deliveryOptionId;a+=`
+  `}),r(".js-order-summary").innerHTML=t}function C(t,i){let a="";return g.forEach(e=>{const o=h(e),c=e.priceCents===0?"FREE":`$${s(e.priceCents)} -`,n=e.id===i.deliveryOptionId;a+=`
       <div class="delivery-option js-delivery-option 
       js-delivery-option-${t.id}-${e.id}"
         data-product-id="${t.id}"
@@ -112,4 +112,4 @@ import{c as d,g as r,a as y,b as $,f as s,d as f,e as g,v as j,l as k}from"./pro
           </div>
         </div>
       </div>
-    `}),a}function E(){document.querySelectorAll(".js-update-link").forEach(t=>{t.addEventListener("click",()=>{const i=t.dataset.productId;if(!i){console.error(`No productId in update link: ${t}`);return}r(`.js-cart-item-container-${i}`).classList.add("is-editing-quantity")})}),document.querySelectorAll(".js-quantity-input").forEach(t=>{t.addEventListener("keydown",i=>{if(i.key==="Enter"){const a=t.dataset.productId;if(!a){console.error(`No productId in quantity input: ${t}`);return}const e=Number(t.value);v(a,e),p(),u(),l()}})}),document.querySelectorAll(".js-save-link").forEach(t=>{t.addEventListener("click",()=>{const i=t.dataset.productId;if(!i){console.error(`No productId in save link: ${t}`);return}const a=Number(r(`.js-quantity-input-${i}`).value);v(i,a),p(),u(),l()})}),document.querySelectorAll(".js-delete-link").forEach(t=>{t.addEventListener("click",i=>{const a=t.dataset.productId;if(!a){console.error(`No productId data in delete link: ${t}`);return}d.removeFromCart(a),p(),u(),l()})}),document.querySelectorAll(".js-delivery-option").forEach(t=>{t.addEventListener("click",()=>{const{productId:i,deliveryOptionId:a}=t.dataset;i&&a&&j.includes(a)?(d.updateDeliveryOption(i,a),u(),l()):console.error(`Missing productId or deliveryOptionId in dataset of element: ${t}`)})})}function u(){q(),E()}k(()=>{p(),u(),l()});
+    `}),a}function E(){document.querySelectorAll(".js-update-link").forEach(t=>{t.addEventListener("click",()=>{const i=t.dataset.productId;if(!i){console.error(`No productId in update link: ${t}`);return}r(`.js-cart-item-container-${i}`).classList.add("is-editing-quantity")})}),document.querySelectorAll(".js-quantity-input").forEach(t=>{t.addEventListener("keydown",i=>{if(i.key==="Enter"){const a=t.dataset.productId;if(!a){console.error(`No productId in quantity input: ${t}`);return}const e=Number(t.value);v(a,e),p(),u(),l()}})}),document.querySelectorAll(".js-save-link").forEach(t=>{t.addEventListener("click",()=>{const i=t.dataset.productId;if(!i){console.error(`No productId in save link: ${t}`);return}const a=Number(r(`.js-quantity-input-${i}`).value);v(i,a),p(),u(),l()})}),document.querySelectorAll(".js-delete-link").forEach(t=>{t.addEventListener("click",i=>{const a=t.dataset.productId;if(!a){console.error(`No productId data in delete link: ${t}`);return}d.removeFromCart(a),p(),u(),l()})}),document.querySelectorAll(".js-delivery-option").forEach(t=>{t.addEventListener("click",()=>{const{productId:i,deliveryOptionId:a}=t.dataset;i&&a&&j.includes(a)?(d.updateDeliveryOption(i,a),u(),l()):console.error(`Missing productId or deliveryOptionId in dataset of element: ${t}`)})})}function u(){I(),E()}Promise.all([k(),new Promise(t=>{q(()=>{t()})})]).then(t=>{console.log(t),p(),u(),l()});

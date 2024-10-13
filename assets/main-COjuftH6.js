@@ -1,4 +1,4 @@
-import{l as r,g as s,p as c,c as e}from"./products-Bo7-c471.js";/* empty css                *//* empty css                      */function d(t){const a=s(`.js-added-to-cart-${t}`);return a.classList.add("added-to-cart-visible"),setTimeout(()=>{a.classList.remove("added-to-cart-visible")},2e3)}function o(){const t=e.calculateCartQuantity();s(".js-cart-quantity").innerHTML=t.toString()}function l(){const t=` 
+import{l as r,g as s,p as c,c as e}from"./products-CDbJ0ow7.js";/* empty css                *//* empty css                      */function d(t){const a=s(`.js-added-to-cart-${t}`);return a.classList.add("added-to-cart-visible"),setTimeout(()=>{a.classList.remove("added-to-cart-visible")},2e3)}function o(){const t=e.calculateCartQuantity();s(".js-cart-quantity").innerHTML=t.toString()}function l(){const t=` 
       <div class="amazon-header-left-section">
         <a href="index.html" class="header-link">
           <img class="amazon-logo" src="images/amazon-logo-white.png">
