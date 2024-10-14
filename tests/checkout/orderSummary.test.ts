@@ -17,8 +17,8 @@ describe('test suite: renderOrderSummary', () => {
   const productName2: string = 'Intermediate Size Basketball';
   const productPrice2: string = '$20.95';
 
-  beforeAll(() => {
-    return loadProductsFetch();
+  beforeAll(async () => {
+    await loadProductsFetch();
   });
 
   beforeEach(() => {

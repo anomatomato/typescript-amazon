@@ -1,7 +1,7 @@
 import { renderCheckoutHeader } from './checkout/checkoutHeader';
 import { renderOrderSummary } from './checkout/orderSummary';
 import { renderPaymentSummary } from './checkout/paymentSummary';
-import { loadCart } from './data/cart-class';
+import { loadCartFetch } from './data/cart-class';
 import { loadProductsFetch } from './data/products';
 // import './data/backend-practice';
 
@@ -9,14 +9,7 @@ async function loadPage(): Promise<void> {
   try {
     await Promise.all([
       loadProductsFetch(),
-      new Promise<void>((resolve, reject) => {
-        // throw 'error2';
-        loadCart(() => {
-          // reject creates error in the future
-          // reject('error2');
-          resolve();
-        })
-      })
+      loadCartFetch(),
     ])
   }
   catch (error) {
