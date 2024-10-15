@@ -1,6 +1,6 @@
 import { cart } from '../data/cart-class';
 import { getDeliveryOption } from '../data/deliveryOptions';
-import { addOrder } from '../data/orders';
+import { orderList } from '../data/orders';
 import { getProduct } from '../data/products';
 import { DeliveryOption } from '../types';
 import { getElement } from '../utils/dom-utils';
@@ -56,7 +56,7 @@ export function renderPaymentSummary() {
       <div class="payment-summary-money js-payment-summary-total">$${formatCurrency(totalCents)}</div>
     </div>
 
-    <button class="place-order-button button-primary js-place-order-button">
+    <button class="place-order-button button-primary js-place-order-button" ${cart.cartItems.length === 0 ? 'disabled=""' : ''}>
       Place your order
     </button>
   `;
@@ -79,7 +79,7 @@ export function renderPaymentSummary() {
         });
 
         const order = await response.json()
-        addOrder(order);
+        orderList.addOrder(order);
       } catch (error) {
         console.log('Unexpected error. Try again later.');
       }

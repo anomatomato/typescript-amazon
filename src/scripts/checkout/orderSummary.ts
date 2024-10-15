@@ -25,7 +25,25 @@ function saveNewQuantity(productId: string, newQuantity: number): void {
 }
 
 // --- Render Cart Items ---
+
+function handleEmptyCart(): void {
+  getElement<HTMLDivElement>('.js-order-summary').innerHTML =
+    `
+      <div class="empty-cart-message">
+        Your cart is empty.
+      </div>
+      <a class="view-products-button button-primary" href=".">
+        View products
+      </a>
+    `;
+}
+
 function renderCartSummary(): void {
+  if (cart.cartItems.length <= 0) {
+    handleEmptyCart();
+    return;
+  }
+
   let cartSummayHTML: string = '';
 
   cart.cartItems.forEach((cartItem) => {
@@ -204,8 +222,8 @@ function setupEventListeners(): void {
         cart.removeFromCart(productId);
 
         renderCheckoutHeader();
-        renderOrderSummary();
         renderPaymentSummary();
+        renderOrderSummary();
       });
     });
 

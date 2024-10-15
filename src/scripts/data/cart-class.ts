@@ -1,6 +1,5 @@
 // Class: object generator
 import { CartProduct, DeliveryOptionId } from '../types';
-import { getElement } from '../utils/dom-utils';
 import { validDeliveryOptionIds } from './deliveryOptions';
 
 export class Cart {
@@ -35,10 +34,10 @@ export class Cart {
   }
 
   addToCart(productId: string): void {
-    const quantitySelector = getElement<HTMLSelectElement>(
+    const quantitySelector = document.querySelector<HTMLSelectElement>(
       `.js-quantity-selector-${productId}`
     );
-    const quantity: number = Number(quantitySelector.value);
+    const quantity: number = quantitySelector ? Number(quantitySelector.value) : 1;
 
     // Find matching item, or add if it doesnt exist
     const matchingItem = this.cartItems.find((cartItem) => cartItem.productId === productId);

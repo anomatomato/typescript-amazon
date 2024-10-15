@@ -18,8 +18,8 @@ async function loadPage(): Promise<void> {
   }
 
   renderCheckoutHeader();
-  renderOrderSummary();
   renderPaymentSummary();
+  renderOrderSummary();
 }
 
 loadPage();
