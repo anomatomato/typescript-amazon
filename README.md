@@ -1,2 +1,2 @@
 ## Link
-https://omg48.github.io/typescript-amazon/
+https://anomatomato.github.io/typescript-amazon/
