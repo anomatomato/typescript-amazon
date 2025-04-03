@@ -1,4 +1,4 @@
-import{l as s,p as n,g as i,c as e}from"./dom-utils-45v2EbIQ.js";/* empty css                *//* empty css                      */import{r as c}from"./header-CmnpboK3.js";function l(o){const t=i(`.js-added-to-cart-${o}`);return t.classList.add("added-to-cart-visible"),setTimeout(()=>{t.classList.remove("added-to-cart-visible")},2e3)}function d(){const o=e.calculateCartQuantity();i(".js-cart-quantity").innerHTML=o.toString()}function r(){const o=n.map(t=>`
+import{l as s,p as n,g as i,c as e}from"./dom-utils-DPgjkwYf.js";/* empty css                *//* empty css                      */import{r as c}from"./header-BSHGgHe7.js";function l(o){const t=i(`.js-added-to-cart-${o}`);return t.classList.add("added-to-cart-visible"),setTimeout(()=>{t.classList.remove("added-to-cart-visible")},2e3)}function d(){const o=e.calculateCartQuantity();i(".js-cart-quantity").innerHTML=o.toString()}function r(){const o=n.map(t=>`
     <div class="product-container">
       <div class="product-image-container">
         <img class="product-image"

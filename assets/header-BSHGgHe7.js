@@ -1,4 +1,4 @@
-import{c as s,g as e}from"./dom-utils-45v2EbIQ.js";function t(){const a=` 
+import{c as s,g as e}from"./dom-utils-DPgjkwYf.js";function t(){const a=` 
       <div class="amazon-header-left-section">
         <a href="index.html" class="header-link">
           <img class="amazon-logo" src="images/amazon-logo-white.png">
