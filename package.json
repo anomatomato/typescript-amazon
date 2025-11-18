@@ -2,7 +2,7 @@
   "homepage": "https://omg48.github.io/typescript-amazon/",
   "type": "module",
   "dependencies": {
-    "@vitest/coverage-v8": "^3.1.1",
+    "@vitest/coverage-v8": "^4.0.10",
     "@vitest/ui": "^3.1.1",
     "dayjs": "^1.11.13",
     "gh-pages": "^6.3.0",
