@@ -1,4 +1,6 @@
 name: Run Vitest Tests
+permissions:
+  contents: read
 
 on:
   push:
