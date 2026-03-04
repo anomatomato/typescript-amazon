@@ -1,4 +1,4 @@
-import{c as r,g as s,a as v,b as $,f as d,d as h,v as g,e as j,h as k,i as I}from"./dom-utils-DPgjkwYf.js";/* empty css                */import{o as b}from"./orders-DM04ZAuh.js";function m(){const t=`
+import{c as r,g as s,a as v,b as $,f as d,d as h,v as g,e as j,h as k,i as I}from"./dom-utils-DWK5_HOm.js";/* empty css                */import{o as b}from"./orders-BH9xT-zN.js";function m(){const t=`
   <div class="checkout-header-left-section">
     <a href="index.html">
       <img class="amazon-logo" src="images/amazon-logo.png">

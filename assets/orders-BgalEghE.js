@@ -1,4 +1,4 @@
-import{h as s,f as c,g as o,c as n,j as l,a as u}from"./dom-utils-DPgjkwYf.js";/* empty css                *//* empty css                      */import{o as v}from"./orders-DM04ZAuh.js";import{r as d}from"./header-BSHGgHe7.js";function e(a){return l(a).format("MMMM D")}function g(){let a="";v.orders.forEach(r=>{r.products&&(a+=`
+import{h as s,f as c,g as o,c as n,j as l,a as u}from"./dom-utils-DWK5_HOm.js";/* empty css                *//* empty css                      */import{o as v}from"./orders-BH9xT-zN.js";import{r as d}from"./header-CqsSlykK.js";function e(a){return l(a).format("MMMM D")}function g(){let a="";v.orders.forEach(r=>{r.products&&(a+=`
   <div class="order-container">
     <div class="order-header">
       <div class="order-header-left-section">

@@ -1,0 +1,1 @@
+class s{orders=[];#r;constructor(r){this.#r=r,this.#s()}addOrder(r){this.orders.unshift(r),this.saveToStorage()}#s(){this.orders=JSON.parse(localStorage.getItem(this.#r)||"null")||[]}saveToStorage(){localStorage.setItem(this.#r,JSON.stringify(this.orders))}}const e=new s("orders");export{e as o};
